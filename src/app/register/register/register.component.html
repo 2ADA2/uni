@@ -1,0 +1,29 @@
+<main>
+  <form [formGroup]="form">
+    <h3>Sign up to Uni</h3>
+    <label>
+      <h5>name</h5>
+      <input formControlName = "name" placeholder="uni">
+    </label>
+    <label>
+      <h5>email</h5>
+      <input formControlName = "email" placeholder="uni@gmail.com">
+    </label>
+    <label>
+      <h5>password</h5>
+      <input formControlName = "password" placeholder="6-20 letters">
+    </label>
+    <label>
+      <h5>confirm password</h5>
+      <input formControlName = "password-confirmation" placeholder="repeat password">
+    </label>
+    <label>
+      <button (click)="register()">
+        sign up
+      </button>
+    </label>
+  </form>
+  <div class="auth-background-frame f1"></div>
+  <div class="auth-background-frame f2"></div>
+  <div class="auth-background-frame f3"></div>
+</main>

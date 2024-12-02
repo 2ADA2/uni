@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@import "fonts";
+*, a, button{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family: "JetBrains Mono";
+}
+
+button, a{
+  font-family: "JetBrains Mono Light";
+}

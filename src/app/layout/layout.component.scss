@@ -1,0 +1,48 @@
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px 0 clamp(40px, 10vw, 140px);
+  height: 60px;
+  background: #1c1c1c;
+
+  & h1{
+    color: white;
+  }
+
+  & button{
+    width: 100px;
+    height: 35px;
+    background: #1c1c1c;
+    color: rgba(255, 255, 255, 0.85);
+    border:1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover{
+      color: white;
+      border-color: white;
+    }
+
+    & a{
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 40px;
+  font-size: 32px;
+  height: 70px;
+  background: #1c1c1c;
+  color:white;
+
+  & h5 span{
+    font-size: 20px;
+    font-weight: 100;
+  }
+}

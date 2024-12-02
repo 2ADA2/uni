@@ -1,0 +1,91 @@
+main {
+  min-height: calc(100vh - 130px);
+  padding-top: 50px;
+}
+
+form {
+  margin:auto;
+  margin-bottom: 20px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: calc(100vw - 200px);
+  min-width: 340px;
+  max-width: 500px;
+  border: 2px solid #1c1c1c;
+  border-radius: 10px;
+  padding: 40px;
+  backdrop-filter: blur(20px);
+
+  & h3 {
+    font-size: 42px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  & h5 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-weight: 300;
+    font-family: "JetBrains Mono Light";
+  }
+
+  & input {
+    min-width: 200px;
+    height: 40px;
+    padding-left: 10px;
+    border: 2px solid #1c1c1c;
+    border-radius: 10px;
+    font-family: "JetBrains Mono Light";
+    background: none;
+  }
+
+  & button {
+    margin-top: 20px;
+    width: 150px;
+    height: 40px;
+    font-size: 20px;
+    background-color: #1c1c1c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(28, 28, 28, 0.9);
+    }
+  }
+}
+
+.auth-background-frame{
+  width: 150vw;
+  min-width: 200vh;
+  height: 150px;
+  z-index: -1;
+  background: rgba(28, 28, 28, 0.3);
+  position: fixed;
+  top:50vh;
+  left:-20vw;
+  rotate:60deg;
+}
+.f2{
+  background:#1c1c1c;
+  top:50vh;
+  left:clamp(-2000px, -50vw, -1000px);
+  height: 300px;
+}
+
+.f3{
+  background: rgba(28, 28, 28, 0.3);
+  top:50vh;
+  left:0;
+  height: 300px;
+}
+
+@media (max-width: 1600px) {
+  .f1{
+    display: none;
+  }
+}

@@ -1,0 +1,24 @@
+<header>
+  <h1>Uni</h1>
+
+  @if(isAuth){
+    <button (click)="logout()">
+      log out
+    </button>
+  } @else if(route == "/login"){
+    <button>
+      <a routerLink="register">Sign up</a>
+    </button>
+  } @else{
+    <button>
+      <a routerLink="login">Sign in</a>
+    </button>
+  }
+
+</header>
+
+<router-outlet></router-outlet>
+
+<footer>
+    <h5>Uni <span>social media</span></h5>
+</footer>
