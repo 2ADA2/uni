@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterOutlet} from "@angular/router";
+import {AuthService} from "../register/auth.service";
 
 @Component({
   selector: 'app-main',
@@ -11,5 +12,4 @@ import {RouterOutlet} from "@angular/router";
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-
 }

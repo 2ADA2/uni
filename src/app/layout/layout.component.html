@@ -2,8 +2,8 @@
   <h1>Uni</h1>
 
   @if(isAuth){
-    <button (click)="logout()">
-      log out
+    <button (click) = "setMenu()">
+      A
     </button>
   } @else if(route == "/login"){
     <button>
@@ -17,7 +17,30 @@
 
 </header>
 
-<router-outlet></router-outlet>
+<router-outlet>
+  @if(isAuth){
+    <aside class="menu" [ngClass]="{'show-menu':menu}">
+      <section>
+        <img>
+        <h5>ada  <span>{{ 22 }} subs</span></h5>
+        <button (click)="setMenu()">x</button>
+      </section>
+      <section>
+        <a>> Your profile</a>
+        <a>> Your likes</a>
+        <a>> Your authors</a>
+        <a>> Your Bookmarks</a>
+      </section>
+      <section>
+        <a>> Settings</a>
+        <button (click)="logout()">> Sign out</button>
+      </section>
+
+    </aside>
+  }
+
+
+</router-outlet>
 
 <footer>
     <h5>Uni <span>social media</span></h5>

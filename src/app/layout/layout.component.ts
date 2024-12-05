@@ -1,13 +1,15 @@
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../register/auth.service";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    NgClass
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
@@ -17,6 +19,8 @@ export class LayoutComponent {
   isAuth =  this.authService.isAuth()
   router:Router = inject(Router)
   route:string = ""
+
+  menu:boolean=false
 
   ngOnInit(){
     this.router.events.subscribe((event:any) => {
@@ -29,5 +33,9 @@ export class LayoutComponent {
   logout(){
     this.authService.logout()
     this.isAuth =  this.authService.isAuth()
+  }
+
+  setMenu(){
+    this.menu = !this.menu
   }
 }

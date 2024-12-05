@@ -12,12 +12,7 @@
       <span>> most popular posts\news lately</span>
       <button>view =></button>
     </div>
-    <div class="settings-card">
-      <h5>your profile</h5>
-      <div></div>
-      <span>> create your own post</span>
-      <button>view =></button>
-    </div>
+
   </aside>
 
   <section class="main">
@@ -31,11 +26,43 @@
   </section>
 
   <aside class="user-settings">
-    <div>
-      <img>
-      <h5>ada</h5>
+    <div class="user-card">
+      <div>
+        <img>
+        <h5>ada</h5>
+        <span>22 subscribers</span>
+      </div>
+      <button>
+        <a>
+          profile
+        </a>
+      </button>
+      <button>
+        <a>
+          settings
+        </a>
+      </button>
     </div>
-    <button>quit</button>
+
+    <div class="main-post">
+      <h5>Your post</h5>
+      <a>
+        <div class="post">
+          <div class="post-header">
+            <img>
+            <span>ada22</span>
+            <span>12 Jan 2024</span>
+          </div>
+          <p>POV: it's your first time in the school</p>
+          <img src="data:image/webp;base64,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">
+          <div class="post-stats">
+            <span>13 likes</span>
+            <span>329 views</span>
+            <span>1 bookmarks</span>
+          </div>
+        </div>
+      </a>
+    </div>
   </aside>
 </main>
 
