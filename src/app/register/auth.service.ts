@@ -14,6 +14,7 @@ export class AuthService {
   token: string | null = null;
   cookieService = inject(CookieService);
   router = inject(Router);
+  name = "ada"
 
   isAuth(): boolean {
     if (!this.token) {

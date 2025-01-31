@@ -134,17 +134,17 @@ main{
     }
 
     & button{
-        width: 120px;
-        height: 40px;
-        aspect-ratio: 5/2;
-        background: none;
-        color: white;
-        border: 1px solid white;
-        border-radius: 5px;
-        cursor: pointer;
-        &:hover{
-          background-color: rgba(255, 255, 255, 0.2);
-        }
+      width: 120px;
+      height: 40px;
+      aspect-ratio: 5/2;
+      background: none;
+      color: white;
+      border: 1px solid white;
+      border-radius: 5px;
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(255, 255, 255, 0.2);
+      }
 
       &:hover{
         background-color: rgba(255, 255, 255, 0.1);
