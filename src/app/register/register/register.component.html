@@ -1,29 +1,29 @@
 <main>
   <form [formGroup]="form">
-    <h3>Sign up to Uni</h3>
+    <h3>Sign up</h3>
     <label>
-      <h5>name</h5>
-      <input formControlName = "name" placeholder="uni">
+      <h5>Username</h5>
+      <input formControlName="name" placeholder="uni" type="text">
     </label>
     <label>
-      <h5>email</h5>
-      <input formControlName = "email" placeholder="uni@gmail.com" type = "email">
+      <h5>Password</h5>
+      <input formControlName="password" placeholder="6-20 letters" type="password">
     </label>
     <label>
-      <h5>password</h5>
-      <input formControlName = "password" placeholder="6-20 letters" type = "password">
+      <h5>Confirm your password</h5>
+      <input formControlName="password_confirmation" placeholder="6-20 letters" type="password">
     </label>
-    <label>
-      <h5>confirm password</h5>
-      <input formControlName = "password-confirmation" placeholder="repeat password" type = "password">
-    </label>
-    <label>
+    <div>
       <button (click)="register()">
-        sign up
+        Sign up
       </button>
-    </label>
+      <a routerLink="/login">sign in</a>
+    </div>
+    @if (error) {
+      <div class="error"><span>*</span> {{ error }}</div>
+    }
+
   </form>
   <div class="auth-background-frame f1"></div>
   <div class="auth-background-frame f2"></div>
-  <div class="auth-background-frame f3"></div>
 </main>

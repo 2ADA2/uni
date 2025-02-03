@@ -26,7 +26,6 @@ export class LayoutComponent {
     this.router.events.subscribe((event:any) => {
       this.route = event.url
       this.isAuth =  this.authService.isAuth()
-      // console.log(this.route)
     })
   }
 

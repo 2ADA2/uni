@@ -5,7 +5,10 @@ header{
   align-items: center;
   padding: 0 40px 0 clamp(40px, 10vw, 140px);
   height: 60px;
-  background: #1c1c1c;
+  background: black;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 3000;
+  position: relative;
 
   & h1{
     color: white;
@@ -62,8 +65,11 @@ footer{
   padding: 0 40px;
   font-size: 32px;
   height: 70px;
-  background: #1c1c1c;
+  background: black;
   color:white;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 3000;
 
   & h5 span{
     font-size: 20px;

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
+import {UserService} from "./service/userService";
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,4 @@ import {LayoutComponent} from "./layout/layout.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = '2bunny-frontend';
 }

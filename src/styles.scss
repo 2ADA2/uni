@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 h1,h2,h3,h4,h5,h6{
-  font-family: "JetBrains Mono";
+  font-family: "JetBrains Mono Light";
   box-sizing: border-box;
 }
 
@@ -16,4 +16,32 @@ button, a{
 a{
   color:white;
   text-decoration: none;
+}
+
+main {
+  background-color: black;
+}
+
+button{
+  width: 150px;
+  height: 40px;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+  }
+}
+input {
+  background: black;
+  color: white;
+}
+
+input:-webkit-autofill {
+  background: white !important;
+  color: black !important;
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
 }

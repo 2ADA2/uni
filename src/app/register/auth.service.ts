@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
+import {tap} from "rxjs";
+import {UserResponse} from "../utils/models/responses";
+import {UserService} from "../service/userService";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +13,7 @@ import {Router} from "@angular/router";
 
 export class AuthService {
   http: HttpClient = inject(HttpClient);
-  baseApiUrl: string = environment.api + "/api/auth/";
+  baseApiUrl: string = environment.api;
   token: string | null = null;
   cookieService = inject(CookieService);
   router = inject(Router);
@@ -23,21 +26,34 @@ export class AuthService {
     return !!this.token;
   }
 
-  logout(){
+  logout() {
     this.token = null;
     this.cookieService.delete("token")
-    this.router.navigate(["/login"]);
+    this.cookieService.delete("userData")
+    this.router.navigateByUrl("/login");
   }
 
-  login(){
-    this.token = "123"
-    this.cookieService.set("token","123")
-    this.router.navigate(["/"])
+  login(payload: { name: string, password: string }) {
+    let fd: FormData = new FormData()
+    fd.append("name", payload.name)
+    fd.append("password", payload.password)
+    return this.http.post<UserResponse>(this.baseApiUrl + "/login", fd).pipe(tap((val) => {
+      const token = val.data.Token
+      this.token = token
+      this.cookieService.set("token", token)
+      this.router.navigate(["/"])
+    }))
   }
 
-  register(){
-    this.token = "123"
-    this.cookieService.set("token","123")
-    this.router.navigate(["/"])
+  register(payload: { name: string, password: string }) {
+    let fd: FormData = new FormData()
+    fd.append("name", payload.name)
+    fd.append("password", payload.password)
+    // @ts-ignore
+    return this.http.post<UserResponse>(this.baseApiUrl + "/register", fd).pipe(tap((val) => {
+      this.router.navigate(["/"])
+    }))
   }
 }
+
+
