@@ -17,10 +17,10 @@ main{
     & .menu-header{
       display: grid;
       grid-template-columns: 80px auto;
-      grid-template-rows: auto auto auto;
+      grid-template-rows: 40px 20px 20px;
       font-family: "JetBrains Mono ExtraLight";
       font-weight: 100;
-      grid-gap: 10px;
+      grid-column-gap: 10px;
 
       & img{
         width: 80px;
@@ -32,7 +32,7 @@ main{
         font-size: 20px;
       }
       & span{
-        font-size: 16px;
+        font-size: 14px;
         line-height: 16px;
       }
     }
@@ -75,8 +75,9 @@ main{
 
   & .main-recs{
     width: 25%;
-    height: 200px;
-    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
   }
 
   & .main{

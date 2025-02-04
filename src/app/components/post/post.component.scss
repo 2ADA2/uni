@@ -1,5 +1,5 @@
 .post{
-  background: #1c1c1c;
+  background: none;
   color:white;
   padding:20px;
   border-radius:10px;
@@ -7,6 +7,7 @@
   flex-direction: column;
   gap:10px;
   max-height: 600px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
 
   & .post-header{
     display: inline-grid;
@@ -47,6 +48,17 @@
     font-size: 14px;
     font-family: "JetBrains Mono Thin";
   }
+  & .post-text:before{
+    content: "";
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 2px;
+    margin: 10px auto;
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 0 10px 3px #e84aff;
+  }
 
   & .post-stats{
     display: flex;
@@ -54,12 +66,11 @@
     justify-content: center;
     align-self: center;
     height: 30px;
-    font-size: 16px;
-    display: flex;
-    gap:40px;
+    font-size: 14px;
+    gap:20px;
 
     & span{
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap:10px;
     }
@@ -68,6 +79,8 @@
       background: none;
       border: none;
       cursor: pointer;
+      width: auto;
+      position: relative;
     }
     & svg{
       width: 20px;
@@ -81,5 +94,54 @@
     & .activated-bookmark{
       fill: #ffae00;
     }
+
+    & .bookmark-effect{
+      animation: active-bookmark 0.2s ease-in;
+      display: block;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      left:10px;
+      top:20px;
+    }
+    & .like-effect{
+      animation: active-like 0.2s ease-in;
+      display: block;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      left:10px;
+      top:20px;
+    }
+  }
+}
+
+@keyframes active-bookmark {
+  0%{
+    box-shadow: 0 0 10px 10px #ffae00;
+  }
+  50%{
+    box-shadow: 0 0 80px 30px #ffae00;
+  }
+  80%{
+    box-shadow: 0 0 150px 50px #ff33ac;
+  }
+  100%{
+    box-shadow: 0 0 400px 70px rgba(255, 51, 172, 0);
+  }
+}
+
+@keyframes active-like {
+  0%{
+    box-shadow: 0 0 10px 10px #ff004d;
+  }
+  50%{
+    box-shadow: 0 0 80px 30px #ff004d;
+  }
+  80%{
+    box-shadow: 0 0 150px 50px #ff33ac;
+  }
+  100%{
+    box-shadow: 0 0 400px 70px rgba(255, 51, 172, 0);
   }
 }
