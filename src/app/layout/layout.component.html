@@ -1,5 +1,5 @@
 <header>
-  <h1>Uni</h1>
+  <h1 routerLink = "/">Uni</h1>
 
 
     @if(isAuth){
@@ -18,6 +18,7 @@
 
 <router-outlet>
   @if(isAuth){
+    <div [ngClass]="{'menu-background':menu}" (click)="setMenu()"></div>
     <aside class="menu" [ngClass]="{'show-menu':menu}">
       <section>
         <img>
@@ -25,13 +26,14 @@
         <button (click)="setMenu()">x</button>
       </section>
       <section>
-        <a>> Your profile</a>
-        <a>> Your likes</a>
-        <a>> Your authors</a>
-        <a>> Your bookmarks</a>
+        <a (click)="setMenu()" routerLink = "/profile/{{user?.User}}">> Your profile</a>
+        <a (click)="setMenu()">> Your likes</a>
+        <a (click)="setMenu()">> Your authors</a>
+        <a (click)="setMenu()">> Your bookmarks</a>
       </section>
       <section>
-        <a>> Settings</a>
+        <a (click)="setMenu()">> Settings</a>
+        <a (click)="setMenu()" routerLink="/">> Home</a>
         <button (click)="logout()">> Sign out</button>
       </section>
 

@@ -7,6 +7,9 @@
   </section>
   <section class="main">
     <app-post></app-post>
+    <app-post></app-post>
+    <app-post></app-post>
+    <app-post></app-post>
   </section>
   <aside class="menu">
     <div class="menu-header">
@@ -16,7 +19,7 @@
       <span>{{(userData?.Followers)?.length}} followers</span>
     </div>
     <div class="panel-control">
-      <button class = "panel-card"><div id = "c1"></div>Profile</button>
+      <button class = "panel-card" routerLink="/profile/{{userData?.User}}"><div id = "c1"></div>Profile</button>
       <button class = "panel-card"><div id = "c2"></div>Likes</button>
       <button class = "panel-card"><div id = "c3"></div>Bookmarks</button>
       <button class = "panel-card"><div id = "c4"></div>Settings</button>

@@ -2,11 +2,12 @@
   background: none;
   color:white;
   padding:20px;
-  border-radius:10px;
+  border-radius:4px;
   display: flex;
   flex-direction: column;
   gap:10px;
   max-height: 600px;
+  max-width: 720px;
   border: 1px solid rgba(255, 255, 255, 0.5);
 
   & .post-header{

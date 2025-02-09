@@ -22,6 +22,7 @@ export class UserService {
       this.userData = JSON.parse(this.cookieService.get("userData"))
     }
     this.token = this.cookieService.get("token")
+    this.getUser()
   }
 
   getUser() {

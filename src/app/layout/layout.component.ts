@@ -2,6 +2,8 @@ import {Component, inject} from '@angular/core';
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../register/auth.service";
 import {NgClass} from "@angular/common";
+import {UserService} from "../service/userService";
+import {UserDataResponse} from "../utils/models/responses";
 
 @Component({
   selector: 'app-layout',
@@ -16,6 +18,8 @@ import {NgClass} from "@angular/common";
 })
 export class LayoutComponent {
   private authService: AuthService = inject(AuthService);
+  public userService: UserService = inject(UserService);
+  user : UserDataResponse | null = null
   isAuth =  this.authService.isAuth()
   router:Router = inject(Router)
   route:string = ""
@@ -27,14 +31,19 @@ export class LayoutComponent {
       this.route = event.url
       this.isAuth =  this.authService.isAuth()
     })
+
   }
 
   logout(){
     this.authService.logout()
     this.isAuth =  this.authService.isAuth()
+    this.menu=false
   }
 
   setMenu(){
     this.menu = !this.menu
+    if(!this.user){
+      this.userService.getData().then(res => this.user = res)
+    }
   }
 }

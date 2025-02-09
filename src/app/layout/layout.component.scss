@@ -1,23 +1,28 @@
 header{
   min-width: 500px;
   display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
   justify-content: space-between;
   align-items: center;
   padding: 0 40px 0 clamp(40px, 10vw, 140px);
   height: 60px;
-  background: black;
+  backdrop-filter: blur(20px);
+  width: 100vw;
+  background: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   z-index: 3000;
-  position: relative;
 
   & h1{
     color: white;
+    cursor: pointer;
   }
 
   & button{
     width: 100px;
     height: 35px;
-    background: #1c1c1c;
+    background: none;
     color: rgba(255, 255, 255, 0.85);
     border:1px solid rgba(255, 255, 255, 0.85);
     border-radius: 5px;
@@ -81,7 +86,7 @@ footer{
   width: 300px;
   display: none;
   flex-direction: column;
-  background: #1c1c1c;
+  background: rgba(0, 0, 0, 0.3);
   height: 100vh;
   position: fixed;
   right: 0;
@@ -110,12 +115,12 @@ footer{
 
     & button{
       position: absolute;
-      right:20px;
+      right:40px;
       top:20px;
       width: 20px;
       height: 20px;
       border:none;
-
+      background: none;
     }
   }
 
@@ -158,7 +163,7 @@ footer{
     }
 
     & button{
-      background: #1c1c1c;
+      background: none;
       color: white;
       border: 1px solid white;
       border-radius: 5px;
@@ -177,6 +182,15 @@ footer{
   display: flex;
   animation: show-menu 0.3s ;
   top:0;
+}
+.menu-background{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left:0;
+  backdrop-filter: blur(4px);
+  z-index: 3000;
 }
 
 @keyframes show-menu {

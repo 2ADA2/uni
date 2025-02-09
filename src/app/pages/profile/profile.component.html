@@ -1,54 +1,32 @@
 <main>
-  <aside class="main-settings">
-    <div class="settings-card">
-      <h5>your authors</h5>
-      <div></div>
-      <span>> look your favourite authors new posts</span>
-      <button routerLink = "/">view =></button>
-    </div>
-    <div class="settings-card">
-      <h5>popular</h5>
-      <div></div>
-      <span>> most popular posts\news lately</span>
-      <button routerLink="/popular">view =></button>
-    </div>
+  <aside class="fast-recs">
+    <app-postcard></app-postcard>
+    <app-postcard></app-postcard>
+    <app-postcard></app-postcard>
   </aside>
-
   <section class="profile-main">
     <div class="profile-header">
-      <img src={{icon}}>
-      <h4>{{name}}</h4>
-      <div>
-        <span><a>{{subs}}</a> Followers</span>
-        <span><a>{{followings}}</a> Following</span>
-      </div>
-      <span>Joined 18.12.2024</span>
+      <img src="{{icon}}" alt="profile-icon" fill>
+      <span class="username">{{name}}</span>
+      <span class="followers">{{subs}} Subscriptoins</span>
+      <span class="followers">{{followers}} subscribers</span>
+      <span class="data">Joined in {{userData?.Date}}</span>
+      <p>{{userData?.About}}</p>
     </div>
-    <h3>{{name}}'s posts</h3>
-    <app-post></app-post>
-    <app-post></app-post>
-    <app-post></app-post>
-    <app-post></app-post>
+    <section class = "profile-content">
+      <div class="profile-posts">
+        <app-post></app-post>
+        <app-post></app-post>
+        <app-post></app-post>
+      </div>
+      <aside class="profile-control">
+        <button><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button>
+        <button><fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>Bookmarks</button>
+        <button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button>
+        <button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button>
+        <button><fa-icon [icon]="faGear" class="c-settings"></fa-icon>Settings</button>
+      </aside>
+    </section>
   </section>
 
-  <aside class="profile-settings">
-    @if(self){
-      <h5>your profile</h5>
-      <div>
-        <h5>your description:</h5>
-        <p>hello my name is ada and this account is the first!</p>
-        <a>create post</a>
-        <a>bookmarks</a>
-        <a>likes</a>
-        <a>settings</a>
-      </div>
-    } @else{
-      <h5>About the user</h5>
-      <div>
-        <h5>description</h5>
-        <p>hello my name is ada and this account is the first!</p>
-        <a>likes</a>
-      </div>
-    }
-  </aside>
 </main>

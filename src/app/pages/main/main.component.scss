@@ -1,8 +1,9 @@
 main{
   min-height: 100vh;
   color:white;
-  padding: 20px 10%;
+  padding: 100px 10% 20px 10%;
   display: flex;
+  justify-content: center;
   gap:20px;
 
   & .menu{
@@ -75,13 +76,15 @@ main{
 
   & .main-recs{
     width: 25%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     gap:20px;
   }
 
   & .main{
-    width: 40%;
+    width: 60%;
+    max-width: 700px;
   }
 }
 

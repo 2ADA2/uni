@@ -1,219 +1,143 @@
 main {
-  max-width: 1200px;
-  margin: auto;
-  min-width: 500px;
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 2fr 3fr 2fr;
-  justify-items: center;
-  padding: 0 40px;
-  margin-bottom: 40px;
+  color: white;
+  padding: 100px 10% 20px 10%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 
-  & aside {
-    padding: 40px;
-  }
+  & .profile-main {
+    max-width: 700px;
+    display: grid;
+    width: 75%;
 
-  & .main-settings {
-    display: flex;
-    flex-direction: column;
-    gap:40px;
-    padding: 40px 0;
-    width: 80%;
-    max-width: 600px;
+    & .profile-header {
+      display: grid;
+      width: 100%;
+      padding: 10px;
+      padding-right: 40px;
+      grid-template-columns:100px auto auto;
+      grid-template-rows: 30px repeat(4, 20px);
+      row-gap: 10px;
+      column-gap: 40px;
+      color: white;
+      overflow: hidden;
 
-    & .settings-card:first-child {
-      background: linear-gradient(to left bottom, #1f0072, #22003a);
+      &:after {
+        content: "";
+        grid-column: 1/4;
+        display: block;
+        width: 30px;
+        height: 2px;
+        background: white;
+        box-shadow: 0 0 30px 10px #ff00ea;
+        margin: 0 auto 10px auto;
+      }
+
+      & img {
+        grid-row: 1/6;
+        width: 100px;
+        height: 100px;
+        border-radius: 20px;
+      }
+
+      & .username {
+        font-size: 24px;
+        font-weight: bold;
+        grid-column: 2/4;
+      }
+
+      & .followers {
+        font-size: 14px;
+        font-weight: 100;
+        font-family: "JetBrains Mono Thin"
+      }
+
+      & .data {
+        font-size: 12px;
+        font-family: "JetBrains Mono Thin"
+      }
+
+      & p {
+        grid-row: 2/6;
+        grid-column: 3/4;
+        font-family: "JetBrains Mono Thin";
+        font-size: 14px;
+      }
     }
 
-    & .settings-card {
-      aspect-ratio: 5/3;
-      border-radius: 20px;
-      background: linear-gradient(to left bottom, #81005a, #6c0000);
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    & .profile-content {
+      display: grid;
+      grid-template-columns:5fr 1fr;
+      grid-gap: 20px;
 
-      & h5{
-        align-self: center;
-        font-size: 20px;
-        color: white;
-        font-width: 100;
+      & .profile-posts {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
       }
 
+      & .profile-control {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 4px;
+        padding: 20px;
+        height: 200px;
 
-      & div {
-        width: 90%;
-        border: 1px solid white;
-        border-radius: 10px;
-        height: 50px;
-        align-self: center;
-      }
+        & button {
+          border: none;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 10px;
+          height: 35px;
 
-      & span {
-        font-size: 14px;
-        color: white;
-      }
+          &:hover {
 
-      & button {
-        margin-top: 10px;
-        min-width: 120px;
-        min-height: 25px;
-        max-width: 150px;
-        max-height: 40px;
-        aspect-ratio: 5/2;
-        width: 50%;
-        background: none;
-        color: white;
-        border: 1px solid white;
-        border-radius: 5px;
-        cursor: pointer;
-        align-self: flex-end;
+            .c-heart {
+              color: #ff0073;
+            }
 
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.2);
+            .c-bookmark {
+              color: #bfff00;
+            }
+
+            .c-follows{
+              color: #8527bb;
+            }
+
+            .c-subs{
+              color: #27d9de;
+            }
+
+            .c-settings {
+              color: #bdbdbd;
+            }
+          }
         }
       }
     }
-
   }
 
-  & .profile-header {
-    display: grid;
-    grid-template-rows: 70px 60px 30px auto;
-    grid-template-columns: 150px auto ;
-    grid-column-gap: 40px;
-    background: linear-gradient(to left bottom, #2e917f, #29376c);
-    border-radius: 10px;
-    margin-bottom: 20px;
-    color: white;
-    padding: 40px;
-
-    & img {
-      grid-row: 1/5;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-    }
-
-    & h4 {
-      width: 100%;
-      font-size: 32px;
-      display: flex;
-      align-items: center;
-    }
-
-    & div {
-      display: flex;
-      flex-direction: column;
-
-      & span{
-        font-size: 16px;
-      }
-    }
-
-    & span {
-      font-size: 10px;
-    }
-  }
-
-  & .profile-main {
+  & .fast-recs {
+    width: 20%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding-top: 40px;
-    width: 100%;
-
-    & h3 {
-      width: 100%;
-      text-align: center;
-      background: #1c1c1c;
-      padding: 20px;
-      color: white;
-      border-radius: 10px;
-    }
-  }
-
-  & .profile-settings{
-    background: linear-gradient(to left bottom, #180a31, #280819);
-    margin: 40px 0 0 80px;
-    width: 100%;
-    border-radius: 20px;
-    height: 500px;
-    color:white;
-
-    & h5{
-      font-size: 24px;
-      color: white;
-      margin-bottom: 10px;
-      font-family: "JetBrains Mono Thin";
-      font-width: 100;
-    }
-
-    & div{
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-
-      & h5{
-        margin-top:16px;
-        font-size: 16px;
-      }
-      & p{
-        font-weight: 100;
-        font-family: "JetBrains Mono Light";
-        font-size: 16px;
-        margin-bottom: 16px;
-      }
-
-      & a {
-        padding: 10px;
-        border:1px solid white;
-        border-radius: 10px;
-        cursor: pointer;
-
-        &:hover{
-          background-color: rgba(255, 255, 255, 0.2);
-        }
-      }
-    }
-
   }
 }
 
-@media(max-width: 1000px) {
+@media(max-width: 1200px) {
   main {
-    & aside {
+    & .fast-recs {
       display: none;
     }
 
-    & section {
-      grid-column: 1/5;
-    }
-  }
-
-}
-@media(max-width: 1300px){
-  main{
-    grid-template-columns: 3fr 1fr;
-    padding-right: 20px;
-
-    & .main-settings{
-      display: none;
+    & .profile-main {
+      width: 90%;
     }
   }
 }
-@media(max-width: 900px){
-  main{
-    display: block;
-    padding:0 20px;
-
-    & .main-settings{
-      display: none;
-    }
-    & .user-settings{
-      display: none;
-    }
-  }
-}
-
