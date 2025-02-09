@@ -5,7 +5,6 @@ import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
 import {tap} from "rxjs";
 import {UserResponse} from "../utils/models/responses";
-import {UserService} from "../service/userService";
 
 @Injectable({
   providedIn: "root",
@@ -40,6 +39,7 @@ export class AuthService {
     return this.http.post<UserResponse>(this.baseApiUrl + "/login", fd).pipe(tap((val) => {
       const token = val.data.Token
       this.token = token
+      console.log(token)
       this.cookieService.set("token", token)
       this.router.navigate(["/"])
     }))

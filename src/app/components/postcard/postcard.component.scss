@@ -1,7 +1,6 @@
 .post-card {
   width: 100%;
-  max-width: 250px;
-  height: 250px;
+  max-width: 300px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 4px;
   padding: 10px;
@@ -24,17 +23,16 @@
   }
 
   & p{
-    font-size: 10px;
+    font-size: 8px;
   }
 
   & img {
-    height: 150px;
     object-fit: cover;
   }
 
   & .post-card-stats{
     display: flex;
-    gap: 10px;
+    gap: 20px;
     justify-content: center;
     margin-top: 5px;
 

@@ -32,7 +32,6 @@ export class ProfileComponent {
   constructor() {
     this.userService.getData().then(res=> {
       this.userData = res
-      console.log(res)
       if (res?.User === name){
         this.self = true
       }

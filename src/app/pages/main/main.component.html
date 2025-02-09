@@ -6,10 +6,10 @@
     <app-postcard></app-postcard>
   </section>
   <section class="main">
-    <app-post></app-post>
-    <app-post></app-post>
-    <app-post></app-post>
-    <app-post></app-post>
+
+    @for(post of mainPosts; track mainPosts){
+      <app-post [postData]="post"></app-post>
+    }
   </section>
   <aside class="menu">
     <div class="menu-header">

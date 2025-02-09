@@ -4,6 +4,7 @@ import {CookieService} from "ngx-cookie-service";
 import {AuthService} from "../register/auth.service";
 import {environment} from "../../environments/environment";
 import {UserDataResponse, UserResponse} from "../utils/models/responses";
+import {ActivatedRoute} from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -16,16 +17,21 @@ export class UserService {
   baseApiUrl = environment.api;
   userData: UserDataResponse | null = null;
   token: string = "";
-
   constructor() {
     if (this.cookieService.get("userData")) {
       this.userData = JSON.parse(this.cookieService.get("userData"))
     }
-    this.token = this.cookieService.get("token")
-    this.getUser()
+
+    if(this.authService.isAuth()){
+      this.token = this.cookieService.get("token")
+      this.getUser()
+    }
   }
 
   getUser() {
+    if(!this.token){
+      this.token = this.cookieService.get("token");
+    }
     if (!this.token) {
       this.authService.logout()
     }

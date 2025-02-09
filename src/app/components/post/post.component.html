@@ -4,15 +4,15 @@
       <img src="{{icon}}">
     </a>
     <h5>
-      <a routerLink="/profile/{{author}}">
-        {{ author }}
+      <a routerLink="/profile/{{postData?.author}}">
+        {{ postData?.author }}
       </a>
     </h5>
-    <span>{{ postDate }}</span>
+    <span>{{ postData?.date }}</span>
   </div>
-  <p>> {{ header }}</p>
-  <img src="{{img}}">
-  <p class="post-text">{{ text }}</p>
+  <p>> {{ postData?.text }}</p>
+  <img src="{{postData?.imgUrl}}">
+  <p class="post-text">{{ postData?.text }}</p>
   <div class="post-stats">
     <span>
       <button (click)="like()">
