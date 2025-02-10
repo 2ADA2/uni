@@ -18,9 +18,6 @@ export class UserService {
   userData: UserDataResponse | null = null;
   token: string = "";
   constructor() {
-    if (this.cookieService.get("userData")) {
-      this.userData = JSON.parse(this.cookieService.get("userData"))
-    }
 
     if(this.authService.isAuth()){
       this.token = this.cookieService.get("token")
@@ -41,12 +38,14 @@ export class UserService {
       }
     }).subscribe(res => {
       this.userData = res.data.data
-      this.cookieService.set("userData", JSON.stringify(this.userData))
     })
   }
 
   async getData() {
-    if(this.userData) return this.userData
+    if(this.userData) {
+      return this.userData
+    }
+
     return new Promise(res => {
       if(!this.userData){
         this.getUser()
@@ -57,8 +56,6 @@ export class UserService {
           }
         }, 100)
       }
-    }).then(res => {
-      return this.userData
-    })
+    }).then(res => this.userData)
   }
 }

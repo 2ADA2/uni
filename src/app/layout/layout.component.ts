@@ -31,7 +31,6 @@ export class LayoutComponent {
       this.route = event.url
       this.isAuth =  this.authService.isAuth()
     })
-
   }
 
   logout(){

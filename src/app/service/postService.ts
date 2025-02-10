@@ -1,5 +1,4 @@
 import {inject, Injectable} from "@angular/core";
-import {UserService} from "./userService";
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environment} from "../../environments/environment";
@@ -10,7 +9,6 @@ import {UserResponse} from "../utils/models/responses";
 })
 
 export class PostService {
-  private userService: UserService = inject(UserService);
   private http: HttpClient = inject(HttpClient);
   private cookieService = inject(CookieService);
   private token: string = "";
@@ -26,10 +24,39 @@ export class PostService {
       this.token = this.cookieService.get("token");
     }
     return this.http.get<UserResponse>(this.baseApiUrl + "/getPosts", {
-        headers: {
-          "Authorization": this.token
-        }
+      headers: {
+        "Authorization": this.token
       }
-    )
+    })
+  }
+
+  like(id:string){
+    return this.http.post(this.baseApiUrl + "/like", {
+      ID:id,
+    },{
+      headers:{
+        "Authorization": this.token
+      }
+    })
+  }
+
+  addToBookmarks(id:string){
+    return this.http.post(this.baseApiUrl + "/bookmark", {
+      ID:id,
+    },{
+      headers:{
+        "Authorization": this.token
+      }
+    })
+  }
+
+  view(id:string){
+    return this.http.post(this.baseApiUrl + "/view", {
+      ID:id,
+    },{
+      headers:{
+        "Authorization": this.token
+      }
+    })
   }
 }
