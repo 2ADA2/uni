@@ -5,6 +5,8 @@ import {UserService} from "../../service/userService";
 import {PostResponse, UserDataResponse, UserResponse} from "../../utils/models/responses";
 import {PostcardComponent} from "../../components/postcard/postcard.component";
 import {PostService} from "../../service/postService";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faBookmark, faGear, faHeart, faPerson, faUser, faWandMagicSparkles} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-main',
@@ -13,7 +15,8 @@ import {PostService} from "../../service/postService";
     RouterOutlet,
     PostComponent,
     RouterLink,
-    PostcardComponent
+    PostcardComponent,
+    FaIconComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
@@ -44,4 +47,11 @@ export class MainComponent {
       this.mainPosts = res.data.data
     })
   }
+
+  protected readonly faPerson = faPerson;
+  protected readonly faUser = faUser;
+  protected readonly faHeart = faHeart;
+  protected readonly faBookmark = faBookmark;
+  protected readonly faWandMagicSparkles = faWandMagicSparkles;
+  protected readonly faGear = faGear;
 }

@@ -27,13 +27,15 @@
       </section>
       <section>
         <a (click)="setMenu()" routerLink = "/profile/{{user?.User}}">> Your profile</a>
-        <a (click)="setMenu()">> Your likes</a>
-        <a (click)="setMenu()">> Your authors</a>
-        <a (click)="setMenu()">> Your bookmarks</a>
+        <a (click)="setMenu()" routerLink="/likes">> Your likes</a>
+        <a (click)="setMenu()" routerLink="/follows">> Your authors</a>
+        <a (click)="setMenu()" routerLink="/subscribers">> Your subscribers</a>
+        <a (click)="setMenu()" routerLink="/bookmarks">> Your bookmarks</a>
       </section>
       <section>
-        <a (click)="setMenu()">> Settings</a>
         <a (click)="setMenu()" routerLink="/">> Home</a>
+        <a (click)="setMenu()" routerLink="/creator">> Create a new post</a>
+        <a (click)="setMenu()">> Settings</a>
         <button (click)="logout()">> Sign out</button>
       </section>
 

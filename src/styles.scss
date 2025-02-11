@@ -1,31 +1,43 @@
 @import "fonts";
-*, a, button{
+
+*, a, button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "JetBrains Mono Light";
 }
-h1,h2,h3,h4,h5,h6{
+
+h1, h2, h3, h4, h5, h6 {
   font-family: "JetBrains Mono Light";
   box-sizing: border-box;
 }
 
-button, a{
+button, a {
   font-family: "JetBrains Mono Light";
   box-sizing: border-box;
 }
-a{
-  color:white;
+
+a {
+  color: white;
   text-decoration: none;
   font-family: "JetBrains Mono Light";
 }
-
+span{
+  font-family: "JetBrains Mono Thin";
+  font-weight: 100;
+}
 main {
   background-color: black;
-  padding-top:100px;
+  min-height: calc(100vh - 70px);
+  color: white;
+  padding: 100px 10% 20px 10%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
 }
 
-button{
+button {
   width: 150px;
   height: 40px;
   background-color: black;
@@ -38,6 +50,7 @@ button{
     cursor: pointer;
   }
 }
+
 input {
   background: black;
   color: white;
