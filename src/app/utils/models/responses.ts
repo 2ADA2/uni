@@ -27,3 +27,14 @@ export interface UserDataResponse {
   Bookmarks: string[];
 }
 
+export interface PostCardInterface{
+  author:string;
+  views:number;
+  likes:number;
+  bookmarks:number;
+  icon:string;
+  src:string;
+  header:string;
+  text:string;
+}
+

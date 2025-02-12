@@ -10,6 +10,7 @@ import {BookmarksComponent} from "./pages/userPages/bookmarks/bookmarks.componen
 import {LikesComponent} from "./pages/userPages/likes/likes.component";
 import {FollowsComponent} from "./pages/userPages/follows/follows.component";
 import {SubscribersComponent} from "./pages/userPages/subscribers/subscribers.component";
+import {PostpageComponent} from "./pages/postpage/postpage.component";
 
 export const routes: Routes = [
   {
@@ -22,6 +23,7 @@ export const routes: Routes = [
       {path:"subscribers", component: SubscribersComponent},
       {path:"follows", component: FollowsComponent},
       {path:"profile/:user", component: ProfileComponent},
+      {path:"post/:id", component: PostpageComponent},
     ],
     canActivate: [canActivate],
   },

@@ -1,5 +1,26 @@
 <main>
-  <section>
-
-  </section>
+  <div class="main-recs">
+    <app-postcard></app-postcard>
+    <app-postcard [post]="postData" ></app-postcard>
+    <app-postcard></app-postcard>
+  </div>
+  <div class="creator-container">
+    <h3>Create a new post</h3>
+    <h5>share your emotions!</h5>
+    <form class="post-prototype" [formGroup]="form">
+      <div class="post-header">
+        <img src = "{{icon}}"> <h5>{{userData?.User}}</h5>
+        <span>{{date}}</span>
+      </div>
+      <input type="text" placeholder="Header of the post" formControlName = "header">
+      <input type="text" placeholder="src" formControlName = "src">
+      <img src = "{{form.value.src}}">
+      <input type = "text" placeholder="Some text" formControlName = "text">
+      <div class = "button-container">
+        <button (click)="createPost()">
+          Create
+        </button>
+      </div>
+    </form>
+  </div>
 </main>
