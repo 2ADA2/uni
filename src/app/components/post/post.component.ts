@@ -21,6 +21,7 @@ export class PostComponent {
   @Input() postData: PostResponse = {
     "ID": "",
     "author": "",
+    "Header": "",
     "subs": 0,
     "date": "",
     "text": "",

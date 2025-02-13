@@ -6,5 +6,6 @@ export const environment = {
     "Access-Control-Allow-Origin":'http://localhost:3000',
     "Access-Control-Allow-Headers":true,
     "Access-Control-Allow-Methods":true
-  }
+  },
+  baseApiUrl: ""
 };

@@ -29,6 +29,7 @@ export class MainComponent {
   public mainPosts : PostResponse[] = [{
     "ID": "",
     "author": "",
+    "Header": "",
     "subs": 0,
     "date": "",
     "text": "",

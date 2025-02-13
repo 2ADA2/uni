@@ -1,10 +1,12 @@
 <div class="post-card">
   <div class="post-card-header">
     <img src="{{icon}}">
-    <h5>{{ author }}</h5>
+    <h5>{{ post?.author  }}</h5>
+    <span>{{post?.date || "14.02.2024"}}</span>
   </div>
-  <p>{{ header }}</p>
-  <img src="{{img}}">
+  <p class = "header">{{ post?.header }}</p>
+  <img src="{{post?.src || img}}">
+  <p>{{post?.text}}</p>
   <div class="post-card-stats">
     <span>
       <svg class="activated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path

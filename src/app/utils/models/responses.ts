@@ -7,6 +7,7 @@ export interface UserResponse {
 export interface PostResponse {
   "ID": string;
   "author": string;
+  "Header" : string
   "subs": number;
   "date": string;
   "text": string;
@@ -36,5 +37,6 @@ export interface PostCardInterface{
   src:string;
   header:string;
   text:string;
+  date:string;
 }
 
