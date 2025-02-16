@@ -41,6 +41,16 @@ export class UserService {
     })
   }
 
+  getUserPosts(name:string){
+    return this.http.post<UserResponse>(this.baseApiUrl + "/getUserPosts", {
+      User:name
+    }, {
+      headers: {
+        "Authorization": this.token
+      }
+    })
+  }
+
   async getData() {
     if(this.userData) {
       return this.userData

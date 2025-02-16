@@ -7,7 +7,7 @@
   </section>
   <section class="main">
 
-    @for (post of mainPosts; track mainPosts) {
+    @for (post of mainPosts; track post.ID) {
       <app-post [postData]="post"></app-post>
     }
   </section>

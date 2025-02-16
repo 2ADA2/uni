@@ -15,16 +15,25 @@
     </div>
     <section class = "profile-content">
       <div class="profile-posts">
-        <app-post></app-post>
-        <app-post></app-post>
-        <app-post></app-post>
+        @for(post of posts; track post.ID){
+          <app-post [postData]="post"></app-post>
+        } @empty {
+          <div>empty</div>
+        }
       </div>
       <aside class="profile-control">
-        <button><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button>
-        <button><fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>Bookmarks</button>
-        <button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button>
-        <button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button>
-        <button><fa-icon [icon]="faGear" class="c-settings"></fa-icon>Settings</button>
+        @if(self){
+          <button><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button>
+          <button><fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>Bookmarks</button>
+          <button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button>
+          <button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button>
+          <button><fa-icon [icon]="faGear" class="c-settings"></fa-icon>Settings</button>
+        }@else{
+          <button [ngClass]="{subscribed:subscribed}" class="sub-button">Subscribe</button>
+          <button><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button>
+          <button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button>
+          <button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button>
+        }
       </aside>
     </section>
   </section>

@@ -36,8 +36,5 @@ export class PostcardComponent {
     this.likes = round(Number(this.likes))
     this.bookmarks = round(Number(this.bookmarks))
     this.views = round(Number(this.views))
-    setTimeout(() => {
-      console.log(this.post?.author)
-    },200)
   }
 }

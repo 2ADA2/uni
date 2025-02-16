@@ -28,7 +28,6 @@ export class CreatorComponent {
   @ViewChild("prototype", {static: true, read: ViewContainerRef}) prototype!: PostcardComponent;
 
   private userService: UserService = inject(UserService);
-  private authService: AuthService = inject(AuthService);
   private cookieService: CookieService = inject(CookieService);
   private http: HttpClient = inject(HttpClient);
   private baseApiUrl: string = environment.api;
