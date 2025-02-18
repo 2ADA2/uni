@@ -5,6 +5,7 @@ import {AuthService} from "../register/auth.service";
 import {environment} from "../../environments/environment";
 import {UserDataResponse, UserResponse} from "../utils/models/responses";
 import {ActivatedRoute} from "@angular/router";
+import {Observable, of, ReplaySubject, tap} from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -17,16 +18,17 @@ export class UserService {
   baseApiUrl = environment.api;
   userData: UserDataResponse | null = null;
   token: string = "";
+
   constructor() {
 
-    if(this.authService.isAuth()){
+    if (this.authService.isAuth()) {
       this.token = this.cookieService.get("token")
-      this.getUser()
+      this.getSelfData().subscribe(res => this.userData = res.data.data)
     }
   }
 
-  getUser() {
-    if(!this.token){
+  getSelfData() :Observable<UserResponse>{
+    if (!this.token) {
       this.token = this.cookieService.get("token");
     }
     if (!this.token) {
@@ -36,36 +38,32 @@ export class UserService {
       headers: {
         "Authorization": this.token,
       }
-    }).subscribe(res => {
+    }).pipe(tap(res => {
       this.userData = res.data.data
+    }))
+  }
+
+  getUser(user:string) {
+    if (!this.token) {
+      this.token = this.cookieService.get("token");
+    }
+    if (!this.token) {
+      this.authService.logout()
+    }
+    return this.http.get<UserResponse>(this.baseApiUrl + "/getUser?name="+user, {
+      headers: {
+        "Authorization": this.token,
+      }
     })
   }
 
-  getUserPosts(name:string){
+  getUserPosts(name: string) {
     return this.http.post<UserResponse>(this.baseApiUrl + "/getUserPosts", {
-      User:name
+      User: name
     }, {
       headers: {
         "Authorization": this.token
       }
     })
-  }
-
-  async getData() {
-    if(this.userData) {
-      return this.userData
-    }
-
-    return new Promise(res => {
-      if(!this.userData){
-        this.getUser()
-        const interval = setInterval(() => {
-          if (this.userData) {
-            clearInterval(interval)
-            res(this.userData)
-          }
-        }, 100)
-      }
-    }).then(res => this.userData)
   }
 }

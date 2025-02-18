@@ -8,7 +8,7 @@
     <div class="profile-header">
       <img src="{{icon}}" alt="profile-icon" fill>
       <span class="username">{{name}}</span>
-      <span class="followers">{{subs}} Subscriptoins</span>
+      <span class="followers">{{subs}} follows</span>
       <span class="followers">{{followers}} subscribers</span>
       <span class="data">Joined in {{userData?.Date}}</span>
       <p>{{userData?.About}}</p>
@@ -23,16 +23,15 @@
       </div>
       <aside class="profile-control">
         @if(self){
-          <button><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button>
-          <button><fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>Bookmarks</button>
-          <button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button>
-          <button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button>
-          <button><fa-icon [icon]="faGear" class="c-settings"></fa-icon>Settings</button>
+          <a routerLink = "/likes"><button ><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button></a>
+          <a routerLink = "/bookmarks"><button><fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>Bookmarks</button></a>
+          <a routerLink = "/subscribers"><button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button></a>
+          <a routerLink = "/follows"><button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button></a>
+          <a routerLink = "/settings"><button><fa-icon [icon]="faGear" class="c-settings"></fa-icon>Settings</button></a>
         }@else{
-          <button [ngClass]="{subscribed:subscribed}" class="sub-button">Subscribe</button>
-          <button><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button>
-          <button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button>
-          <button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button>
+          <button [ngClass]="{subscribed:subscribed}" class="sub-button" (click)="subscribeUser()">{{!subscribed ? "subscribe":"subscribed"}}</button>
+          <a routerLink = "/follows"><button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button></a>
+          <a routerLink = "/subscribers"><button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button></a>
         }
       </aside>
     </section>

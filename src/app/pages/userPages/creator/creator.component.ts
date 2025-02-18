@@ -57,7 +57,11 @@ export class CreatorComponent {
   public error = ""
 
   ngOnInit() {
-    this.userService.getData().then(res => this.postData.author = res!.User)
+    this.userService.getSelfData().subscribe(res => {
+      const userData:UserDataResponse = res.data.data
+      this.postData.author = userData.User
+    })
+
     this.date = new Date().toLocaleDateString("en-US");
     do {
       this.date = this.date.replace("/", ".")

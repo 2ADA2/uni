@@ -2,7 +2,7 @@ import {Component, inject, Input} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {round} from "../../utils/functions/round";
-import {PostResponse} from "../../utils/models/responses";
+import {PostResponse, UserDataResponse} from "../../utils/models/responses";
 import {PostService} from "../../service/postService";
 import {UserService} from "../../service/userService";
 
@@ -58,10 +58,11 @@ export class PostComponent {
         this.bookmarks = round(Number(this.bookmarksNum))
         this.views = round(Number(this.viewsNum))
 
-        this.userService.getData().then(res => {
-          const userLikes = res?.Likes
+        this.userService.getSelfData().subscribe(res => {
+          const data:UserDataResponse = res.data.data
+          const userLikes = data?.Likes
           if (userLikes?.includes(this.postData.ID)) this.liked = true;
-          const userBookmarks = res?.Bookmarks
+          const userBookmarks = data?.Bookmarks
           if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
         })
 

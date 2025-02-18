@@ -7,6 +7,8 @@ import {PostResponse, UserDataResponse} from "../../utils/models/responses";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faBookmark, faGear, faHeart, faPeopleGroup} from "@fortawesome/free-solid-svg-icons";
 import {NgClass} from "@angular/common";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-profile',
@@ -15,14 +17,17 @@ import {NgClass} from "@angular/common";
     PostComponent,
     PostcardComponent,
     FaIconComponent,
-    NgClass
+    NgClass,
+    RouterLink
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 
 export class ProfileComponent {
-  private router = inject(ActivatedRoute)
+  private router = inject(ActivatedRoute);
+  private http = inject(HttpClient);
+  private baseApiUrl = environment.api;
 
   public userService: UserService = inject(UserService);
   public name = this.router.snapshot.params['user'];
@@ -31,19 +36,37 @@ export class ProfileComponent {
   public followers: number | string = 0
   public self: boolean = false;
   public userData: UserDataResponse | null = null
-  public subscribed :boolean = false
+  public subscribed :boolean = false;
+  private selfUserData : UserDataResponse | null = null
 
   public posts: PostResponse[] = [];
 
   constructor() {
-    this.userService.getData().then(res => {
-      this.userData = res
-      this.subs = this.round(Number(this.userData?.Subscribes.length))
-      this.followers = this.round(Number(this.userData?.Followers.length))
-      if (res?.User === this.name) {
+    this.userService.getSelfData().subscribe(res => {
+      const userData:UserDataResponse = res.data.data
+      if (userData.User === this.name) {
         this.self = true
+        this.userData = res.data.data
+        this.subs = this.userData!.Subscribes.length;
+        this.followers = this.userData!.Followers.length
+      } else{
+        this.userService.getUser(this.name).subscribe(user => {
+          this.userData = user.data.data
+          this.subs = this.userData!.Subscribes.length;
+          this.followers = this.userData!.Followers.length
+        })
+      }
+      this.selfUserData = userData
+      if(this.selfUserData?.Subscribes.includes(this.name)){
+        this.subscribed = true;
       }
     });
+  }
+
+  ngOnInit() {
+    this.userService.getUserPosts(this.name).subscribe(res => {
+      this.posts = res.data.posts
+    })
   }
 
   round(num: number): string {
@@ -62,13 +85,17 @@ export class ProfileComponent {
     return String(num)
   }
 
-  ngOnInit() {
-    this.userService.getUserPosts(this.name).subscribe(res => {
-      this.posts = res.data.posts
+  subscribeUser(){
+    this.http.post(this.baseApiUrl + "/subscribe", {
+      "Author" : this.userData?.User
+    }, {
+      headers: {
+        "Authorization" : this.userService.token
+      }
+    }).subscribe(res => {
+      this.subscribed = !this.subscribed
     })
-
   }
-
 
   protected readonly faPeopleGroup = faPeopleGroup;
   protected readonly faGear = faGear;

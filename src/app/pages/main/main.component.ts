@@ -41,8 +41,7 @@ export class MainComponent {
 
 
   ngOnInit(){
-    this.userService.getData()
-      .then(res => this.userData = res)
+    this.userService.getSelfData().subscribe(res => this.userData = res.data.data)
 
     this.postService.getPosts().subscribe((res:UserResponse) => {
       this.mainPosts = res.data.data

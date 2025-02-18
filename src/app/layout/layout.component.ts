@@ -42,7 +42,7 @@ export class LayoutComponent {
   setMenu(){
     this.menu = !this.menu
     if(!this.user){
-      this.userService.getData().then(res => this.user = res)
+      this.userService.getSelfData().subscribe(res => this.user = res.data.data)
     }
   }
 }

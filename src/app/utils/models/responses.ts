@@ -27,6 +27,14 @@ export interface UserDataResponse {
   Likes: string[];
   Bookmarks: string[];
 }
+export interface UserShortDataResponse {
+  User: string;
+  About: string;
+  Followers: string[];
+  Subscribes: string[];
+  Links: string[];
+  Date: string;
+}
 
 export interface PostCardInterface{
   author:string;
