@@ -22,23 +22,22 @@
     <aside class="menu" [ngClass]="{'show-menu':menu}">
       <section>
         <img>
-        <h5>ada  <span>{{ 22 }} subs</span></h5>
+        <h5>{{ user?.User }}  <span>{{ followers}} subs</span></h5>
         <button (click)="setMenu()">x</button>
       </section>
       <section>
         <a (click)="setMenu()" routerLink = "/profile/{{user?.User}}">> Your profile</a>
         <a (click)="setMenu()" routerLink="/likes">> Your likes</a>
-        <a (click)="setMenu()" routerLink="/follows">> Your authors</a>
-        <a (click)="setMenu()" routerLink="/subscribers">> Your subscribers</a>
+        <a (click)="setMenu()" routerLink="/follows/{{user?.User}}">> Your authors</a>
+        <a (click)="setMenu()" routerLink="/subscribers/{{user?.User}}">> Your subscribers</a>
         <a (click)="setMenu()" routerLink="/bookmarks">> Your bookmarks</a>
       </section>
       <section>
         <a (click)="setMenu()" routerLink="/">> Home</a>
         <a (click)="setMenu()" routerLink="/creator">> Create a new post</a>
-        <a (click)="setMenu()">> Settings</a>
+        <a (click)="setMenu()" routerLink = "/settings">> Settings</a>
         <button (click)="logout()">> Sign out</button>
       </section>
-
     </aside>
   }
 

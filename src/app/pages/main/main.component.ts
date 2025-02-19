@@ -48,7 +48,6 @@ export class MainComponent {
     })
   }
 
-  protected readonly faPerson = faPerson;
   protected readonly faUser = faUser;
   protected readonly faHeart = faHeart;
   protected readonly faBookmark = faBookmark;

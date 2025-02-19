@@ -23,6 +23,7 @@ export class LayoutComponent {
   isAuth =  this.authService.isAuth()
   router:Router = inject(Router)
   route:string = ""
+  public followers:number = 0;
 
   menu:boolean=false
 
@@ -42,6 +43,11 @@ export class LayoutComponent {
   setMenu(){
     this.menu = !this.menu
     if(!this.user){
+      if(this.userService.userData){
+        this.user = this.userService.userData
+        this.followers = this.user.Followers.length
+        return
+      }
       this.userService.getSelfData().subscribe(res => this.user = res.data.data)
     }
   }

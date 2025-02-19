@@ -2,10 +2,8 @@
   <div class="follows">
     <h3>Your follows</h3>
     <h5>or just your favourite authors</h5>
-    <app-author-card></app-author-card>
-    <app-author-card></app-author-card>
-    <app-author-card></app-author-card>
-    <app-author-card></app-author-card>
-    <app-author-card></app-author-card>
+    @for (user of follows; track user.User){
+      <app-author-card [userData]="user"></app-author-card>
+    }
   </div>
 </main>
