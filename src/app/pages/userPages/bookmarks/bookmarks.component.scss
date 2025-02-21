@@ -1,0 +1,34 @@
+.bookmarks{
+  cursor: pointer;
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+  gap:10px;
+
+  & .header{
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+    margin-bottom: 40px;
+    gap:5px;
+
+    & h3{
+      font-size: 20px;
+    }
+  }
+
+  & h5{
+    font-weight: 100;
+    font-size: 14px;
+  }
+
+  & app-post{
+    width: 500px;
+  }
+}
+
+@media (max-width: 550px) {
+  .likes app-post{
+    width:95%;
+  }
+}

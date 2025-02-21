@@ -1,1 +1,13 @@
-<p>subscribers works!</p>
+<main>
+  <div class="subs">
+    <div class="header">
+      <h3>{{user}}'s subscribers</h3>
+      <h5>people who follow you</h5>
+      <h5>{{userService.userData?.User}} has {{round(subs.length)}} subscribers</h5>
+    </div>
+    @for (user of subs; track user.User){
+      <app-author-card [userData]="user"></app-author-card>
+    }
+  </div>
+</main>
+

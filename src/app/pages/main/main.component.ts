@@ -12,7 +12,6 @@ import {faBookmark, faGear, faHeart, faPerson, faUser, faWandMagicSparkles} from
   selector: 'app-main',
   standalone: true,
   imports: [
-    RouterOutlet,
     PostComponent,
     RouterLink,
     PostcardComponent,

@@ -39,7 +39,6 @@ export class AuthService {
     return this.http.post<UserResponse>(this.baseApiUrl + "/login", fd).pipe(tap((val) => {
       const token = val.data.Token
       this.token = token
-      console.log(token)
       this.cookieService.set("token", token)
       this.router.navigate(["/"])
     }))

@@ -11,21 +11,16 @@ import {UserResponse} from "../utils/models/responses";
 export class PostService {
   private http: HttpClient = inject(HttpClient);
   private cookieService = inject(CookieService);
-  private token: string = "";
   private baseApiUrl: string = environment.api;
 
   constructor() {
-    this.token = this.cookieService.get("token");
     this.getPosts()
   }
 
   getPosts() {
-    if (!this.token) {
-      this.token = this.cookieService.get("token");
-    }
     return this.http.get<UserResponse>(this.baseApiUrl + "/getPosts", {
       headers: {
-        "Authorization": this.token
+        "Authorization": this.cookieService.get("token")
       }
     })
   }
@@ -35,7 +30,7 @@ export class PostService {
       ID:id,
     },{
       headers:{
-        "Authorization": this.token
+        "Authorization": this.cookieService.get("token")
       }
     })
   }
@@ -45,7 +40,7 @@ export class PostService {
       ID:id,
     },{
       headers:{
-        "Authorization": this.token
+        "Authorization": this.cookieService.get("token")
       }
     })
   }
@@ -55,7 +50,7 @@ export class PostService {
       ID:id,
     },{
       headers:{
-        "Authorization": this.token
+        "Authorization": this.cookieService.get("token")
       }
     })
   }

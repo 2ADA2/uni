@@ -9,6 +9,7 @@ import {faBookmark, faGear, faHeart, faPeopleGroup} from "@fortawesome/free-soli
 import {NgClass} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-profile',
@@ -38,6 +39,7 @@ export class ProfileComponent {
   public userData: UserDataResponse | null = null
   public subscribed :boolean = false;
   private selfUserData : UserDataResponse | null = null
+  private cookieService : CookieService = inject(CookieService);
 
   public posts: PostResponse[] = [];
 
@@ -90,7 +92,7 @@ export class ProfileComponent {
       "Author" : this.userData?.User
     }, {
       headers: {
-        "Authorization" : this.userService.token
+        "Authorization" : this.cookieService.get("token")
       }
     }).subscribe(res => {
       this.subscribed = !this.subscribed

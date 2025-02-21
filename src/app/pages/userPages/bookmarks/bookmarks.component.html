@@ -1,1 +1,11 @@
-<p>bookmarks works!</p>
+<main>
+  <div class="bookmarks">
+    <div class="header">
+      <h3>Your bookmarks</h3>
+      <h5>You added {{round(postsNum)}} posts</h5>
+    </div>
+    @for (post of posts; track post.ID){
+      <app-post [postData]="post"></app-post>
+    }
+  </div>
+</main>

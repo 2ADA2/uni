@@ -17,39 +17,27 @@ export class UserService {
   authService = inject(AuthService);
   baseApiUrl = environment.api;
   userData: UserDataResponse | null = null;
-  token: string = "";
+  token:string = this.cookieService.get('token');
 
   constructor() {
-
+    this.token = this.cookieService.get("token")
     if (this.authService.isAuth()) {
-      this.token = this.cookieService.get("token")
       this.getSelfData().subscribe(res => this.userData = res.data.data)
     }
   }
 
   getSelfData() :Observable<UserResponse>{
-    if (!this.token) {
-      this.token = this.cookieService.get("token");
-    }
-    if (!this.token) {
-      this.authService.logout()
-    }
     return this.http.get<UserResponse>(this.baseApiUrl + "/getSelf", {
       headers: {
-        "Authorization": this.token,
+        "Authorization": this.cookieService.get("token"),
       }
     }).pipe(tap(res => {
       this.userData = res.data.data
+      this.token = this.cookieService.get("token")
     }))
   }
 
   getUser(user:string) {
-    if (!this.token) {
-      this.token = this.cookieService.get("token");
-    }
-    if (!this.token) {
-      this.authService.logout()
-    }
     return this.http.get<UserResponse>(this.baseApiUrl + "/getUser?name="+user, {
       headers: {
         "Authorization": this.token,

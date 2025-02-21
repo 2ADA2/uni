@@ -2,13 +2,29 @@
   cursor: pointer;
   display : flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap:10px;
 
+  & .header{
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+    margin-bottom: 40px;
+    gap:5px;
+
+    & h3{
+      font-size: 20px;
+    }
+  }
+
   & h5{
     font-weight: 100;
-    margin-bottom: 40px;
     font-size: 14px;
+  }
+
+  & :last-child{
+    font-size: 10px;
+    font-family: "JetBrains Mono Thin";
+    font-weight: 100;
   }
 }

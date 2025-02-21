@@ -59,13 +59,21 @@ export class PostComponent {
         this.bookmarks = round(Number(this.bookmarksNum))
         this.views = round(Number(this.viewsNum))
 
-        this.userService.getSelfData().subscribe(res => {
-          const data: UserDataResponse = res.data.data
+        if(this.userService.userData?.User){
+          const data: UserDataResponse = this.userService.userData
           const userLikes = data?.Likes
           if (userLikes?.includes(this.postData.ID)) this.liked = true;
           const userBookmarks = data?.Bookmarks
           if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
-        })
+        } else{
+          this.userService.getSelfData().subscribe(res => {
+            const data: UserDataResponse = res.data.data
+            const userLikes = data?.Likes
+            if (userLikes?.includes(this.postData.ID)) this.liked = true;
+            const userBookmarks = data?.Bookmarks
+            if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
+          })
+        }
         this.ID = this.postData.ID
         clearInterval(interval)
       }
@@ -75,7 +83,6 @@ export class PostComponent {
   ngAfterViewInit() {
     const interval = setInterval(() => {
       if(this.postData.ID){
-        console.log(this.postData.ID)
         const postElement: HTMLElement | null = document.getElementById(this.postData.ID);
         if (!postElement) return
         const observer = new IntersectionObserver((entries) => {
@@ -97,7 +104,9 @@ export class PostComponent {
 
   like() {
     this.postService.like(this.postData.ID)
-      .subscribe()
+      .subscribe(res => {
+        this.userService.getSelfData().subscribe()
+      })
     this.liked = !this.liked
     if (this.liked) {
       this.likesNum++
@@ -106,11 +115,14 @@ export class PostComponent {
     }
     this.likes = round(this.likesNum)
     this.clickedLike = true;
+
   }
 
   addToBookmarks() {
     this.postService.addToBookmarks(this.postData.ID)
-      .subscribe()
+      .subscribe(res => {
+        this.userService.getSelfData().subscribe()
+      })
     this.inBookmarks = !this.inBookmarks
     if (this.inBookmarks) {
       this.bookmarksNum++
@@ -119,6 +131,7 @@ export class PostComponent {
     }
     this.bookmarks = round(this.bookmarksNum)
     this.clickedBookmarks = true;
+    this.userService.getSelfData().subscribe()
   }
 
   view() {
