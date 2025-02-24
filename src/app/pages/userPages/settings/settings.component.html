@@ -1,1 +1,37 @@
-<p>settings works!</p>
+<main>
+  <form [formGroup]="form">
+    <div class="settings-header">
+      <img src="">
+      <h3>{{ userData?.User }}</h3>
+      <h5>{{ userData?.Date }}</h5>
+    </div>
+
+    <div class="main-settings-container">
+      <h5>Profile icon</h5>
+      <input formControlName = "img">
+
+      <h5>Description</h5>
+      <span>0-200 symbols</span>
+      <textarea formControlName="description" ></textarea>
+    </div>
+
+    <div class="settings-links">
+      <h5>Links</h5>
+      <span>name</span>
+      <input formControlName = "l1-name">
+      <span>link</span>
+      <input formControlName = "l1-url">
+
+      <span>name</span>
+      <input formControlName = "l2-name">
+      <span>link</span>
+      <input formControlName = "l2-url">
+
+      <span>name</span>
+      <input formControlName = "l3-name">
+      <span>link</span>
+      <input formControlName = "l3-url">
+    </div>
+    <button>submit</button>
+  </form>
+</main>

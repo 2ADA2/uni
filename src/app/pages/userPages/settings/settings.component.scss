@@ -1,0 +1,88 @@
+form {
+  display: flex;
+  flex-direction: column;
+  border:1px solid white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  gap:40px;
+
+  & .settings-header {
+    display: grid;
+    grid-template-columns: 80px auto;
+    grid-template-rows: 40px 40px;
+    grid-column-gap: 20px;
+
+    & img{
+      height: 80px;
+      width: 80px;
+      border-radius: 20px;
+      background: white;
+      grid-row: 1/4;
+    }
+
+    & h3{
+      font-size: 24px;
+    }
+
+    & h5{
+      font-size: 14px;
+      font-weight: 100;
+    }
+  }
+
+  & .main-settings-container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+
+    & input{
+      margin-bottom: 20px;
+    }
+
+    & span{
+      font-size: 14px;
+    }
+
+    & textarea{
+      height: 200px;
+      width: 100%;
+      resize: none;
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+
+      &:focus{
+        border: 1px solid rgba(255, 255, 255);
+      }
+    }
+  }
+
+  & .settings-links {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: repeat(4, 30px);
+    grid-gap:5px;
+
+    & span{
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & h5{
+      grid-column: 1/5;
+    }
+
+
+  }
+
+  & input{
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    padding-left: 5px;
+
+    & :focus{
+      border: 1px solid rgba(255, 255, 255);
+    }
+  }
+}
