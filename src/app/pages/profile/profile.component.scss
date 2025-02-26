@@ -78,7 +78,7 @@ main {
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-radius: 4px;
         padding: 20px;
-        height: 235px;
+        height: 270px;
         & a{
           height: 35px;
         }
@@ -107,6 +107,10 @@ main {
 
             .c-subs{
               color: #27d9de;
+            }
+
+            .c-creator{
+              color: #fc71b7;
             }
 
             .c-settings {

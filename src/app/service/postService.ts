@@ -2,7 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {environment} from "../../environments/environment";
-import {UserResponse} from "../utils/models/responses";
+import {PostResponse, UserResponse} from "../utils/models/responses";
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +12,7 @@ export class PostService {
   private http: HttpClient = inject(HttpClient);
   private cookieService = inject(CookieService);
   private baseApiUrl: string = environment.api;
+  public currentPost :PostResponse | null = null;
 
   constructor() {
     this.getPosts()
@@ -53,5 +54,9 @@ export class PostService {
         "Authorization": this.cookieService.get("token")
       }
     })
+  }
+
+  setCurrent (post:PostResponse){
+    this.currentPost = post
   }
 }

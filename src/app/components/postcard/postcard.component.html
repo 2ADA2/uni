@@ -1,11 +1,15 @@
-<div class="post-card">
-  <div class="post-card-header">
+<div class="post-card" id = "{{post?.ID}}">
+  <div class="post-card-header" routerLink = "/post/{{post?.ID}}">
     <img src="{{icon}}">
-    <h5>{{ post?.author  }}</h5>
+    <h5>
+      <a routerLink="/profile/{{post?.author}}">
+        {{ post?.author }}
+      </a>
+    </h5>
     <span>{{post?.date || "14.02.2024"}}</span>
   </div>
-  <p class = "header">{{ post?.header }}</p>
-  <img src="{{post?.src || img}}">
+  <p class = "header">{{ post?.Header }}</p>
+  <img src="{{post?.imgUrl || img}}">
   <p>{{post?.text}}</p>
   <div class="post-card-stats">
     <span>

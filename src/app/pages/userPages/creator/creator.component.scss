@@ -74,6 +74,7 @@ main{
       border-radius: 4px;
       outline: none;
       padding: 5px 0 5px 10px;
+
       &:focus{
         border: 1px solid rgba(255, 255, 255);
       }
@@ -83,6 +84,8 @@ main{
       resize: none;
       min-height: 150px;
       color:white;
+      font-family: "JetBrains Mono Thin";
+      font-weight: 100;
     }
     & img {
       width: 100%;

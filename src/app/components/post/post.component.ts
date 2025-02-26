@@ -66,13 +66,24 @@ export class PostComponent {
           const userBookmarks = data?.Bookmarks
           if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
         } else{
-          this.userService.getSelfData().subscribe(res => {
-            const data: UserDataResponse = res.data.data
-            const userLikes = data?.Likes
-            if (userLikes?.includes(this.postData.ID)) this.liked = true;
-            const userBookmarks = data?.Bookmarks
-            if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
-          })
+          setTimeout(() => {
+            if(!this.userService.userData?.User){
+              this.userService.getSelfData().subscribe(res => {
+                const data: UserDataResponse = res.data.data
+                const userLikes = data?.Likes
+                if (userLikes?.includes(this.postData.ID)) this.liked = true;
+                const userBookmarks = data?.Bookmarks
+                if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
+              })
+            } else{
+              const data: UserDataResponse = this.userService.userData
+              const userLikes = data?.Likes
+              if (userLikes?.includes(this.postData.ID)) this.liked = true;
+              const userBookmarks = data?.Bookmarks
+              if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
+            }
+          },50)
+
         }
         this.ID = this.postData.ID
         clearInterval(interval)
@@ -146,6 +157,9 @@ export class PostComponent {
       counts += 1
       if (counts >= 5) clearInterval(interval)
     }, 100)
+  }
 
+  setCurrent() {
+    this.postService.setCurrent(this.postData)
   }
 }

@@ -21,7 +21,7 @@ export interface UserDataResponse {
   About: string;
   Followers: string[];
   Subscribes: string[];
-  Links: string[];
+  Links: Link[];
   Date: string;
   Posts: any;
   Likes: string[];
@@ -32,19 +32,11 @@ export interface UserShortDataResponse {
   About: string;
   Followers: string[];
   Subscribes: string[];
-  Links: string[];
+  Links: Link[];
   Date: string;
 }
 
-export interface PostCardInterface{
-  author:string;
-  views:number;
-  likes:number;
-  bookmarks:number;
-  icon:string;
-  src:string;
-  header:string;
-  text:string;
-  date:string;
+interface Link{
+  Name:string;
+  Link:string;
 }
-

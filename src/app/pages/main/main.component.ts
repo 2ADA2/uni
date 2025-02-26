@@ -23,28 +23,25 @@ import {faBookmark, faGear, faHeart, faPerson, faUser, faWandMagicSparkles} from
 
 export class MainComponent {
   userService: UserService = inject(UserService);
-  userData: UserDataResponse|null = null
+  userData: UserDataResponse | null = null
   private postService: PostService = inject(PostService);
-  public mainPosts : PostResponse[] = [{
-    "ID": "",
-    "author": "",
-    "Header": "",
-    "subs": 0,
-    "date": "",
-    "text": "",
-    "imgUrl": "",
-    "Likes": 0,
-    "Bookmarks": 0,
-    "Views": 0,
-  }]
+  public mainPosts !:PostResponse[]
+  public fastRecs !:PostResponse[]
 
 
-  ngOnInit(){
-    this.userService.getSelfData().subscribe(res => this.userData = res.data.data)
+  ngOnInit() {
+    if (this.userService.userData) {
+      this.userData = this.userService.userData
+    } else {
+      this.userService.getSelfData().subscribe(res => this.userData = res.data.data)
+    }
 
-    this.postService.getPosts().subscribe((res:UserResponse) => {
-      this.mainPosts = res.data.data
+    this.postService.getPosts().subscribe((res: UserResponse) => {
+      this.mainPosts = res.data.data.slice(4,res.data.length)
+      this.fastRecs = res.data.data.slice(0,4)
     })
+
+
   }
 
   protected readonly faUser = faUser;

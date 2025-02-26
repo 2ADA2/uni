@@ -1,5 +1,5 @@
 <div class="post" id="{{ID}}">
-  <div class="post-header">
+  <div class="post-header" routerLink = "/post/{{postData.ID}}" (click)="setCurrent()">
     <a>
       <img src="{{icon}}">
     </a>

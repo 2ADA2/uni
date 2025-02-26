@@ -49,6 +49,7 @@ form {
       resize: none;
       background: none;
       border: 1px solid rgba(255, 255, 255, 0.5);
+      color: white;
 
       &:focus{
         border: 1px solid rgba(255, 255, 255);
@@ -76,10 +77,11 @@ form {
 
   }
 
-  & input{
+  & input, textarea{
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 2px;
     padding-left: 5px;
+    font-family: "JetBrains Mono Thin";
 
     & :focus{
       border: 1px solid rgba(255, 255, 255);

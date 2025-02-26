@@ -5,7 +5,7 @@ import {UserService} from "../../service/userService";
 import {PostcardComponent} from "../../components/postcard/postcard.component";
 import {PostResponse, UserDataResponse} from "../../utils/models/responses";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faBookmark, faGear, faHeart, faPeopleGroup} from "@fortawesome/free-solid-svg-icons";
+import {faBookmark, faGear, faHeart, faPen, faPeopleGroup} from "@fortawesome/free-solid-svg-icons";
 import {NgClass} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
@@ -103,4 +103,5 @@ export class ProfileComponent {
   protected readonly faGear = faGear;
   protected readonly faBookmark = faBookmark;
   protected readonly faHeart = faHeart;
+  protected readonly faPen = faPen;
 }

@@ -27,6 +27,7 @@
           <a routerLink = "/bookmarks"><button><fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>Bookmarks</button></a>
           <a routerLink = "/subscribers/{{userData?.User}}"><button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button></a>
           <a routerLink = "/follows/{{userData?.User}}"><button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button></a>
+          <a routerLink = "/creator"><button><fa-icon [icon]="faPen" class="c-creator"></fa-icon>Creator</button></a>
           <a routerLink = "/settings"><button><fa-icon [icon]="faGear" class="c-settings"></fa-icon>Settings</button></a>
         }@else{
           <button [ngClass]="{subscribed:subscribed}" class="sub-button" (click)="subscribeUser()">{{!subscribed ? "subscribe":"subscribed"}}</button>

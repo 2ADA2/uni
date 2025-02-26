@@ -5,7 +5,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 import {UserService} from "../../../service/userService";
-import {PostCardInterface, PostResponse, UserDataResponse} from "../../../utils/models/responses";
+import {PostResponse, UserDataResponse} from "../../../utils/models/responses";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../../register/auth.service";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -42,16 +42,17 @@ export class CreatorComponent {
     text: new FormControl(""),
   })
 
-  public postData: PostCardInterface = {
-    author: "ada",
-    likes: 48724,
-    views: 748729,
-    bookmarks: 9874,
-    icon: this.icon,
-    src: this.form.value.src,
-    text: this.form.value.text || "text",
-    header: this.form.value.header,
-    date: this.date
+  public postData: PostResponse = {
+    "ID": "123",
+    "author": "ada",
+    "Header" : "string",
+    "subs": 12343,
+    "date": "12.11.2000",
+    "text": "https://media.tenor.com/ZePHeDDgsPIAAAAM/suspicious-cat.gif",
+    "imgUrl": "https://media.tenor.com/ZePHeDDgsPIAAAAM/suspicious-cat.gif",
+    "Likes": 123432,
+    "Bookmarks": 22222,
+    "Views": 4235322,
   }
 
   public error = ""
@@ -69,14 +70,14 @@ export class CreatorComponent {
     this.postData.date = this.date;
 
     this.form.valueChanges.subscribe((value) => {
-      if (value.header.length > 30) {
-        this.form.get("header")?.setValue(value.header.slice(0, 30))
+      if (value.header.length > 60) {
+        this.form.get("header")?.setValue(value.header.slice(0, 60))
       }
       if (value.text.length > 200) {
         this.form.get("text")?.setValue(value.text.slice(0, 200))
       }
-      this.postData.header = this.form.value.header;
-      this.postData.src = this.form.value.src;
+      this.postData.Header = this.form.value.header;
+      this.postData.imgUrl = this.form.value.src;
       this.postData.text = this.form.value.text;
 
       this.prototype.post = this.postData;
@@ -102,8 +103,8 @@ export class CreatorComponent {
       Author: this.postData.author,
       Date: this.postData.date,
       Text: this.postData.text,
-      ImgUrl: this.postData.src,
-      Header: this.postData.header,
+      ImgUrl: this.postData.imgUrl,
+      Header: this.postData.Header,
       Likes: 0,
       Bookmarks: 0,
       Views: 0,
