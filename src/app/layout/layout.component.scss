@@ -20,11 +20,11 @@ header{
   }
 
   & button{
-    width: 100px;
+    width: 35px;
     height: 35px;
     background: none;
     color: rgba(255, 255, 255, 0.85);
-    border:1px solid rgba(255, 255, 255, 0.85);
+    font-size: 20px;
     border-radius: 5px;
     cursor: pointer;
 
@@ -194,6 +194,41 @@ footer{
   z-index: 3000;
 }
 
+.search-container{
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & .search-header{
+    display: grid;
+    grid-template-columns: auto 80px 35px;
+    gap:5px;
+    position: relative;
+    top:20px;
+
+    & input{
+      width: clamp(50px, 40vw, 300px);
+      border:1px solid white;
+      border-radius: 5px;
+      padding: 5px;
+    }
+
+    & button{
+      min-width: 40px;
+      width: auto;
+    }
+  }
+}
+.blockScroll{
+  overflow: hidden;
+}
 @keyframes show-menu {
   0%{
     right:-400px

@@ -7,6 +7,7 @@ import {round} from "../../utils/functions/round";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-postpage',
@@ -25,7 +26,8 @@ export class PostpageComponent {
   private activatedRoute : ActivatedRoute = inject(ActivatedRoute)
   private baseApiUrl: string = environment.api;
   private http : HttpClient = inject(HttpClient);
-  postData !:PostResponse
+  private location:Location = inject(Location);
+  postData !:PostResponse;
 
   public clickedLike: boolean = false;
   public clickedBookmarks: boolean = false;
@@ -45,7 +47,7 @@ export class PostpageComponent {
   views: number | string = 0
 
   ngOnInit() {
-    if(!this.postService.currentPost){
+    if(!this.postService.currentPost || this.postService.currentPost != this.activatedRoute.snapshot.params["id"]){
       this.http.get<UserResponse>(this.baseApiUrl + "/getPost?id="+this.activatedRoute.snapshot.params["id"], {
         headers:{
           "Authorization" : this.cookieService.get("token")
@@ -166,6 +168,9 @@ export class PostpageComponent {
       counts += 1
       if (counts >= 5) clearInterval(interval)
     }, 100)
+  }
 
+  goBack(): void {
+    this.location.back();
   }
 }

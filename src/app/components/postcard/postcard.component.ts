@@ -43,6 +43,7 @@ export class PostcardComponent {
     this.bookmarks = round(Number(this.bookmarks))
     this.views = round(Number(this.views))
   }
+
   ngAfterViewInit() {
     const interval = setInterval(() => {
       if(this.post){
@@ -64,10 +65,10 @@ export class PostcardComponent {
       }
     },10)
   }
+
   view() {
     let counts: number = 0
     const interval = setInterval(() => {
-      console.log(1)
       if (this.post) {
         this.postService.view(this.post.ID)
           .subscribe()

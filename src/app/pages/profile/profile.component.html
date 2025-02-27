@@ -1,8 +1,8 @@
 <main>
   <aside class="fast-recs">
-    <app-postcard></app-postcard>
-    <app-postcard></app-postcard>
-    <app-postcard></app-postcard>
+    @for (post of fastRecs; track post.ID){
+      <app-postcard [post]="post"></app-postcard>
+    }
   </aside>
   <section class="profile-main">
     <div class="profile-header">

@@ -4,6 +4,9 @@ import {AuthService} from "../register/auth.service";
 import {NgClass} from "@angular/common";
 import {UserService} from "../service/userService";
 import {UserDataResponse} from "../utils/models/responses";
+import {FormsModule} from "@angular/forms";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faBars, faSearch, faX} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-layout',
@@ -11,7 +14,9 @@ import {UserDataResponse} from "../utils/models/responses";
   imports: [
     RouterOutlet,
     RouterLink,
-    NgClass
+    NgClass,
+    FormsModule,
+    FaIconComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
@@ -24,6 +29,8 @@ export class LayoutComponent {
   router:Router = inject(Router)
   route:string = ""
   public followers:number = 0;
+  public isSearch : boolean = false;
+  public searchValue = ""
 
   menu:boolean=false
 
@@ -51,4 +58,18 @@ export class LayoutComponent {
       this.userService.getSelfData().subscribe(res => this.user = res.data.data)
     }
   }
+
+  setSearch(){
+    this.isSearch = !this.isSearch
+    if (this.isSearch) document.body.style.overflowY="hidden";
+    if (!this.isSearch) document.body.style.overflowY="scroll";
+  }
+
+  search(){
+    alert(this.searchValue)
+  }
+
+  protected readonly faSearch = faSearch;
+  protected readonly faBars = faBars;
+  protected readonly faX = faX;
 }
