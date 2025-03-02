@@ -3,7 +3,7 @@
   @if (isAuth) {
     <div class="header-params">
       <button (click)="setSearch()">
-          <fa-icon [icon]="faSearch"></fa-icon>
+        <fa-icon [icon]="faSearch"></fa-icon>
       </button>
       <button (click)="setMenu()">
         <fa-icon [icon]="faBars"></fa-icon>
@@ -42,7 +42,7 @@
 @if (isSearch) {
   <section class="search-container">
     <div class="search-header">
-      <input [(ngModel)]="searchValue">
+      <input [(ngModel)]="searchValue" (keydown)="checkKey($event)">
       <button (click)="search()">search</button>
       <button (click)="setSearch()">
         <fa-icon [icon]="faX"></fa-icon>
@@ -50,7 +50,24 @@
     </div>
 
     <div class="search-results">
-
+      <div class="search-posts">
+        @for (result of userResults; track result.ID) {
+          <app-author-card [userData]="result" (click)="setSearch()" class="search-post"></app-author-card>
+        } @empty {
+          <div class="empty">
+            no such users
+          </div>
+        }
+      </div>
+      <div class="search-users">
+        @for (result of postResults; track result.ID) {
+          <app-post [postData]="result" (click)="setSearch()" class="search-user"></app-post>
+        } @empty {
+          <div class="empty">
+            no such posts
+          </div>
+        }
+      </div>
     </div>
   </section>
 }

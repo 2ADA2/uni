@@ -55,14 +55,15 @@
   & p{
     font-size: 14px;
     font-family: "JetBrains Mono Thin";
+    margin-top:20px;
   }
-  & .post-text:before{
+  & .post-text:after{
     content: "";
     display: block;
     position: relative;
     width: 20px;
     height: 2px;
-    margin: 10px auto;
+    margin: 20px auto;
     background: white;
     border-radius: 2px;
     box-shadow: 0 0 10px 3px #e84aff;

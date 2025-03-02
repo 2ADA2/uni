@@ -3,10 +3,16 @@ import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../register/auth.service";
 import {NgClass} from "@angular/common";
 import {UserService} from "../service/userService";
-import {UserDataResponse} from "../utils/models/responses";
+import {UserDataResponse, UserResponse} from "../utils/models/responses";
 import {FormsModule} from "@angular/forms";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {faBars, faSearch, faX} from "@fortawesome/free-solid-svg-icons";
+import {HttpClient} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
+import {environment} from "../../environments/environment";
+import {UserInfo} from "node:os";
+import {PostComponent} from "../components/post/post.component";
+import {AuthorCardComponent} from "../components/author-card/author-card.component";
 
 @Component({
   selector: 'app-layout',
@@ -16,13 +22,19 @@ import {faBars, faSearch, faX} from "@fortawesome/free-solid-svg-icons";
     RouterLink,
     NgClass,
     FormsModule,
-    FaIconComponent
+    FaIconComponent,
+    PostComponent,
+    AuthorCardComponent
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
   private authService: AuthService = inject(AuthService);
+  private http: HttpClient = inject(HttpClient);
+  private cookieService: CookieService = inject(CookieService);
+  private baseApiUrl: string = environment.api;
+
   public userService: UserService = inject(UserService);
   user : UserDataResponse | null = null
   isAuth =  this.authService.isAuth()
@@ -31,6 +43,9 @@ export class LayoutComponent {
   public followers:number = 0;
   public isSearch : boolean = false;
   public searchValue = ""
+
+  public postResults:any[] = []
+  public userResults:any[] = []
 
   menu:boolean=false
 
@@ -59,14 +74,39 @@ export class LayoutComponent {
     }
   }
 
+  checkKey(event:KeyboardEvent){
+    if(event.keyCode == 13) this.search();
+  }
+
   setSearch(){
     this.isSearch = !this.isSearch
     if (this.isSearch) document.body.style.overflowY="hidden";
-    if (!this.isSearch) document.body.style.overflowY="scroll";
+    if (!this.isSearch) {
+      this.searchValue = ""
+      this.postResults = []
+      this.userResults = []
+      document.body.style.overflowY = "scroll";
+    }
   }
 
   search(){
-    alert(this.searchValue)
+    this.userResults = []
+    this.postResults = []
+    if(!this.searchValue) return;
+
+    this.http.get<UserResponse>(this.baseApiUrl + "/search?searchValue=" + this.searchValue, {
+      headers:{
+        "Authorization" : this.cookieService.get("token")
+      }
+    }).subscribe(res => {
+      for(let i of res.data.data){
+        if(i.Header){
+          this.postResults = [...this.postResults, i]
+        } else{
+          this.userResults = [...this.userResults, i]
+        }
+      }
+    })
   }
 
   protected readonly faSearch = faSearch;

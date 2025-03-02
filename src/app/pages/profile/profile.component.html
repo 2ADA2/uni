@@ -12,13 +12,25 @@
       <span class="followers">{{followers}} subscribers</span>
       <span class="data">Joined in {{userData?.Date}}</span>
       <p>{{userData?.About}}</p>
+      <div class="profile-links">
+        @for(link of userData?.Links; track link.Name){
+          @if(link.Name && link.Link){
+            <div class="profile-link">
+            <span>
+              <fa-icon [icon]="faLink"></fa-icon>
+            </span>
+              <a href="{{link.Link}}">{{link.Name}}</a>
+            </div>
+          }
+        }
+      </div>
     </div>
     <section class = "profile-content">
       <div class="profile-posts">
         @for(post of posts; track post.ID){
           <app-post [postData]="post"></app-post>
         } @empty {
-          <div>empty</div>
+          <div class = "empty">empty</div>
         }
       </div>
       <aside class="profile-control">
