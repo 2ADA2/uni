@@ -3,6 +3,7 @@ import {AuthService} from "../auth.service";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {requestError} from "../../utils/errors/requestErrors";
+import {UserService} from "../../service/userService";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ import {requestError} from "../../utils/errors/requestErrors";
 })
 export class LoginComponent {
   authService: AuthService = inject(AuthService);
+  userService: UserService = inject(UserService);
   error:string = ""
   form:FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -41,6 +43,7 @@ export class LoginComponent {
         name: this.form.value.name,
         password: this.form.value.password
       }).subscribe((val) => {
+        window.location.reload();
     }, (err) => {
       setTimeout(() => {
         this.error = requestError(err.error)

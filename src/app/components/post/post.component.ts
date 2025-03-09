@@ -1,19 +1,25 @@
 import {Component, inject, Input} from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
+import {NgClass, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {round} from "../../utils/functions/round";
 import {PostResponse, UserDataResponse} from "../../utils/models/responses";
 import {PostService} from "../../service/postService";
 import {UserService} from "../../service/userService";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
+import {faBucket, faEllipsisV, faX} from "@fortawesome/free-solid-svg-icons";
+import {FormsModule} from "@angular/forms";
+import {HttpClient} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-post',
   standalone: true,
   imports: [
     RouterLink,
-    FaIconComponent
+    FaIconComponent,
+    NgClass,
+    FormsModule
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -21,7 +27,10 @@ import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 export class PostComponent {
   private postService: PostService = inject(PostService);
   private userService: UserService = inject(UserService);
-  public self: boolean = false;
+  private http: HttpClient = inject(HttpClient);
+  private cookieService: CookieService = inject(CookieService);
+  private baseApiUrl: string = environment.api;
+
   @Input() postData: PostResponse = {
     "ID": "",
     "author": "",
@@ -51,6 +60,12 @@ export class PostComponent {
   likes: number | string = 0
   bookmarks: number | string = 0
   views: number | string = 0
+
+  public self: boolean = false;
+  public optionsOpened:boolean = false;
+  public deleteWindow:boolean = false;
+  public code:string = String(Math.random()).slice(5,9);
+  public inputCode:string = ""
 
   ngOnInit() {
     const interval = setInterval(() => {
@@ -149,5 +164,40 @@ export class PostComponent {
     this.postService.setCurrent(this.postData)
   }
 
+  setOptions(){
+    this.optionsOpened = !this.optionsOpened
+  }
+
+  setDelete(){
+    this.deleteWindow = !this.deleteWindow
+    if (this.deleteWindow) document.body.style.overflowY="hidden";
+    else document.body.style.overflowY="scroll";
+  }
+
+  async delete(){
+    if (this.inputCode === this.code){
+
+      let res = await this.http.delete(this.baseApiUrl + "/deleteImage?url=" + this.postData.imgUrl, {
+        headers: {
+          "Authorization" : this.cookieService.get("token")
+        }
+      }).toPromise()
+
+      console.log(res)
+
+      res = this.http.delete(this.baseApiUrl + "/deletePost?id=" + this.postData.ID, {
+        headers: {
+          "Authorization" : this.cookieService.get("token")
+        }
+      }).subscribe()
+      console.log(res)
+
+      this.optionsOpened = false
+      window.location.reload()
+    }
+  }
+
   protected readonly faEllipsisV = faEllipsisV;
+  protected readonly faBucket = faBucket;
+  protected readonly faX = faX;
 }

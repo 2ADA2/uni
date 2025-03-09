@@ -1,8 +1,30 @@
 <div class="post" id="{{ID}}">
   @if(self){
-    <button class="post-options">
+    <button class="post-options-button" (click)="setOptions()">
       <fa-icon [icon]="faEllipsisV"></fa-icon>
     </button>
+    @if(optionsOpened){
+      <div class="post-options">
+        <button (click)="setDelete()">
+          <fa-icon [icon]="faBucket"></fa-icon>
+          <span>Delete</span>
+        </button>
+      </div>
+
+      @if(deleteWindow){
+        <div class="delete-background">
+          <div class="delete-body">
+            <button (click)="setDelete()" class="close">
+              <fa-icon [icon]="faX" ></fa-icon>
+            </button>
+            <h5>Delete the post</h5>
+            <span>enter the code to confirm: <strong>{{code}}</strong></span>
+            <input type="text" [(ngModel)]="inputCode">
+            <button [ngClass]="{ready:code===inputCode}" (click)="delete()" class="delete">delete</button>
+          </div>
+        </div>
+      }
+    }
   }
   <a class="post-header" href = "/post/{{postData.ID}}" (click)="setCurrent()">
     <a>
