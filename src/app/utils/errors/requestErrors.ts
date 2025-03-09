@@ -6,3 +6,9 @@ export function requestError(err:UserResponse):string{
   }
   return "uknown error"
 }
+
+export function throwError (text:string, throwErr = (text:string) => {}){
+  setTimeout (() => {
+    throwErr(text || "unknown error");
+  },10)
+}

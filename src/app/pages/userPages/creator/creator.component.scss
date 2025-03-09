@@ -80,6 +80,23 @@ main{
       }
     }
 
+    & .input-image{
+      border: 1px solid #ccc;
+      display: inline-flex;
+      padding: 6px 12px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      gap:20px;
+      input[type="file"] {
+        display: none;
+      }
+
+      &:hover{
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
     & textarea{
       resize: none;
       min-height: 150px;

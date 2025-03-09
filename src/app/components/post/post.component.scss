@@ -8,6 +8,19 @@
   gap:10px;
   max-width: 720px;
   border: 1px solid rgba(255, 255, 255, 0.5);
+  position: relative;
+  & button{
+    width: 30px;
+    align-self: flex-end;
+    background: none;
+    position: absolute;
+    top:20px;
+    right:20px;
+    z-index: 22;
+    &:hover{
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
 
   & .post-header{
     display: inline-grid;
@@ -40,6 +53,7 @@
 
     & span{
       font-size: 14px;
+      grid-column: 2;
     }
   }
 

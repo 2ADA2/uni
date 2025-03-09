@@ -5,12 +5,15 @@ import {round} from "../../utils/functions/round";
 import {PostResponse, UserDataResponse} from "../../utils/models/responses";
 import {PostService} from "../../service/postService";
 import {UserService} from "../../service/userService";
+import {FaIconComponent} from "@fortawesome/angular-fontawesome";
+import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-post',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    FaIconComponent
   ],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss'
@@ -18,6 +21,7 @@ import {UserService} from "../../service/userService";
 export class PostComponent {
   private postService: PostService = inject(PostService);
   private userService: UserService = inject(UserService);
+  public self: boolean = false;
   @Input() postData: PostResponse = {
     "ID": "",
     "author": "",
@@ -59,41 +63,23 @@ export class PostComponent {
         this.bookmarks = round(Number(this.bookmarksNum))
         this.views = round(Number(this.viewsNum))
 
-        if(this.userService.userData?.User){
+        if (this.userService.userData?.User) {
           const data: UserDataResponse = this.userService.userData
           const userLikes = data?.Likes
           if (userLikes?.includes(this.postData.ID)) this.liked = true;
           const userBookmarks = data?.Bookmarks
           if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
-        } else{
-          setTimeout(() => {
-            if(!this.userService.userData?.User){
-              this.userService.getSelfData().subscribe(res => {
-                const data: UserDataResponse = res.data.data
-                const userLikes = data?.Likes
-                if (userLikes?.includes(this.postData.ID)) this.liked = true;
-                const userBookmarks = data?.Bookmarks
-                if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
-              })
-            } else{
-              const data: UserDataResponse = this.userService.userData
-              const userLikes = data?.Likes
-              if (userLikes?.includes(this.postData.ID)) this.liked = true;
-              const userBookmarks = data?.Bookmarks
-              if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
-            }
-          },50)
-
+          this.ID = this.postData.ID
+          this.self = (this.userService.userData.User === this.postData.author)
+          clearInterval(interval)
         }
-        this.ID = this.postData.ID
-        clearInterval(interval)
       }
     }, 10)
   }
 
   ngAfterViewInit() {
     const interval = setInterval(() => {
-      if(this.postData.ID){
+      if (this.postData.ID) {
         const postElement: HTMLElement | null = document.getElementById(this.postData.ID);
         if (!postElement) return
         const observer = new IntersectionObserver((entries) => {
@@ -110,7 +96,7 @@ export class PostComponent {
         observer.observe(postElement)
         clearInterval(interval)
       }
-    },10)
+    }, 10)
   }
 
   like() {
@@ -162,4 +148,6 @@ export class PostComponent {
   setCurrent() {
     this.postService.setCurrent(this.postData)
   }
+
+  protected readonly faEllipsisV = faEllipsisV;
 }

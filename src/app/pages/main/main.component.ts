@@ -37,8 +37,9 @@ export class MainComponent {
     }
 
     this.postService.getPosts().subscribe((res: UserResponse) => {
-      this.mainPosts = res.data.data.slice(4,res.data.length)
-      this.fastRecs = res.data.data.slice(0,4)
+      this.mainPosts = [res.data.data[0], ...res.data.data.slice(4,res.data.length)]
+      this.fastRecs = res.data.data.slice(1,4)
+      console.log(res.data.data[0])
     })
 
 

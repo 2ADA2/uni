@@ -1,24 +1,31 @@
 <main>
-  <div class = "container">
+  <div class="container">
     <div class="main-recs">
       <h3>Overview</h3>
       <app-postcard [post]="postCard"></app-postcard>
-      <app-postcard [post] = "postData" #prototype></app-postcard>
+      <app-postcard [post]="postData" #prototype></app-postcard>
     </div>
     <div class="creator-container">
       <h3>Create a new post</h3>
       <h5>share your emotions!</h5>
       <form class="post-prototype" [formGroup]="form">
         <div class="post-header">
-          <img src = "{{icon}}"> <h5>{{postData.author}}</h5>
-          <span>{{date}}</span>
+          <img src="{{icon}}"> <h5>{{ postData.author }}</h5>
+          <span>{{ date }}</span>
         </div>
-        <input type="text" placeholder="Header of the post (0-60lt)" formControlName = "header">
-        <input type="text" placeholder="src" formControlName = "src">
-        <img src = "{{form.value.src}}">
-        <textarea placeholder="Some text (0-200lt)" formControlName = "text"></textarea>
-        <div class = "button-container">
-          @if(error){
+        <input type="text" placeholder="Header of the post (0-60lt)" formControlName="header">
+        <label class="input-image" (change)="onImageSelected($event)" >
+          <fa-icon [icon]="faUpload"></fa-icon>
+          <input type="file" #file>
+          Upload Image
+          <span>
+            {{fileName}}
+          </span>
+        </label>
+        <img src="{{form.value.src}}">
+        <textarea placeholder="Some text (0-200lt)" formControlName="text"></textarea>
+        <div class="button-container">
+          @if (error) {
             <div class="error"><span>*</span> {{ error }}</div>
           }
           <button (click)="createPost()">

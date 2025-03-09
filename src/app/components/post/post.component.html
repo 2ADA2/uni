@@ -1,4 +1,9 @@
 <div class="post" id="{{ID}}">
+  @if(self){
+    <button class="post-options">
+      <fa-icon [icon]="faEllipsisV"></fa-icon>
+    </button>
+  }
   <a class="post-header" href = "/post/{{postData.ID}}" (click)="setCurrent()">
     <a>
       <img src="{{icon}}">
