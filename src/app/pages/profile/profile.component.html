@@ -11,7 +11,7 @@
       <span class="followers">{{subs}} follows</span>
       <span class="followers">{{followers}} subscribers</span>
       <span class="data">Joined in {{userData?.Date}}</span>
-      <p>{{userData?.About}}</p>
+      <p [ngStyle]="{'white-space' : 'pre-line'}">{{userData?.About}}</p>
       <div class="profile-links">
         @for(link of userData?.Links; track link.Name){
           @if(link.Name && link.Link){

@@ -8,6 +8,7 @@ export interface PostResponse {
   "ID": string;
   "author": string;
   "Header" : string
+  "Icon" : string;
   "subs": number;
   "date": string;
   "text": string;
@@ -19,6 +20,7 @@ export interface PostResponse {
 export interface UserDataResponse {
   User: string;
   About: string;
+  Icon:string;
   Followers: string[];
   Subscribes: string[];
   Links: Link[];
@@ -30,6 +32,7 @@ export interface UserDataResponse {
 export interface UserShortDataResponse {
   User: string;
   About: string;
+  Icon: string;
   Followers: string[];
   Subscribes: string[];
   Links: Link[];

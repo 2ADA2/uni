@@ -13,9 +13,9 @@ import {UserResponse} from "../utils/models/responses";
 export class AuthService {
   http: HttpClient = inject(HttpClient);
   baseApiUrl: string = environment.api;
-  token: string | null = null;
   cookieService = inject(CookieService);
   router = inject(Router);
+  token: string | null = this.cookieService.get("token");
   name = "ada"
 
   isAuth(): boolean {

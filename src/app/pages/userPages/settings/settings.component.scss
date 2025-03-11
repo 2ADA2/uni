@@ -35,6 +35,36 @@ form {
     flex-direction: column;
     gap:10px;
 
+    & .icon-edit-container{
+      display: flex;
+      gap:10px;
+
+      & img{
+        height: 100px;
+        width: 100px;
+        object-fit: inherit;
+        border:1px solid white;
+      }
+    }
+
+    & .input-icon{
+      border:1px solid white;
+      cursor: pointer;
+      height: 40px;
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap:10px;
+
+      & span{
+        font-size: 10px;
+      }
+      & input{
+        display: none;
+      }
+    }
+
     & input{
       margin-bottom: 20px;
     }

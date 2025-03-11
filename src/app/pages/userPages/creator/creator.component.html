@@ -2,8 +2,10 @@
   <div class="container">
     <div class="main-recs">
       <h3>Overview</h3>
-      <app-postcard [post]="postCard"></app-postcard>
-      <app-postcard [post]="postData" #prototype></app-postcard>
+      @if(postCard && postData.Icon){
+        <app-postcard [post]="postCard"></app-postcard>
+        <app-postcard [post]="postData" #prototype></app-postcard>
+      }
     </div>
     <div class="creator-container">
       <h3>Create a new post</h3>

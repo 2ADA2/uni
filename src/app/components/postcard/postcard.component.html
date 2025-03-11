@@ -10,7 +10,7 @@
   </div>
   <p class = "header">{{ post?.Header }}</p>
   <img src="{{post?.imgUrl || img}}">
-  <p>{{post?.text}}</p>
+  <p [ngStyle]="{ 'white-space': 'pre-line' }">{{post?.text}}</p>
   <div class="post-card-stats">
     <span>
       <svg class="activated" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path

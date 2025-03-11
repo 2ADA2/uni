@@ -37,6 +37,7 @@ export class LayoutComponent {
 
   public userService: UserService = inject(UserService);
   user : UserDataResponse | null = null
+  icon = environment.icon
   isAuth =  this.authService.isAuth()
   router:Router = inject(Router)
   route:string = ""
@@ -58,7 +59,7 @@ export class LayoutComponent {
 
   logout(){
     this.authService.logout()
-    this.isAuth =  this.authService.isAuth()
+    this.isAuth =  false
     this.menu=false
   }
 

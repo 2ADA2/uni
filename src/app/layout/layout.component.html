@@ -18,15 +18,15 @@
     <div [ngClass]="{'menu-background':menu}" (click)="setMenu()"></div>
     <aside class="menu" [ngClass]="{'show-menu':menu}">
       <section>
-        <img>
+        <img src = "{{user?.Icon || icon}}">
         <h5>{{ user?.User }}  <span>{{ followers }} subs</span></h5>
         <button (click)="setMenu()">x</button>
       </section>
       <section>
-        <a (click)="setMenu()" routerLink="/profile/{{user?.User}}">> Your profile</a>
+        <a (click)="setMenu()" href="/profile/{{user?.User}}">> Your profile</a>
         <a (click)="setMenu()" routerLink="/likes">> Your likes</a>
-        <a (click)="setMenu()" routerLink="/follows/{{user?.User}}">> Your authors</a>
-        <a (click)="setMenu()" routerLink="/subscribers/{{user?.User}}">> Your subscribers</a>
+        <a (click)="setMenu()" href="/follows/{{user?.User}}">> Your authors</a>
+        <a (click)="setMenu()" href="/subscribers/{{user?.User}}">> Your subscribers</a>
         <a (click)="setMenu()" routerLink="/bookmarks">> Your bookmarks</a>
       </section>
       <section>

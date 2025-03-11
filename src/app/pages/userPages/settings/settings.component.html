@@ -1,14 +1,22 @@
 <main>
   <form [formGroup]="form">
     <div class="settings-header">
-      <img src="">
+      <img src="{{userData?.Icon || environment.icon}}" class = "icon">
       <h3>{{ userData?.User }}</h3>
       <h5>{{ userData?.Date }}</h5>
     </div>
 
     <div class="main-settings-container">
       <h5>Profile icon</h5>
-      <input formControlName = "img">
+      <div class="icon-edit-container">
+        <label (input)="inputIcon($event)" class = "input-icon">
+          <fa-icon [icon]="faUpload"></fa-icon>
+          Upload Icon
+          <span>(<1MB)</span>
+          <input type = "file" #file>
+        </label>
+        <img src = "{{form.value.url || environment.icon}}">
+      </div>
 
       <h5>Description</h5>
       <span>0-200 symbols</span>
