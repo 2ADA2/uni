@@ -38,7 +38,7 @@ export class PostcardComponent {
       this.views = this.post?.Views;
       this.bookmarks = this.post?.Bookmarks;
       this.author = this.post?.author;
-      this.text = this.post.text
+      this.text = this.post.text;
       this.header = this.post.Header;
       this.img = this.post.imgUrl;
       this.icon = this.post.Icon || environment.icon;

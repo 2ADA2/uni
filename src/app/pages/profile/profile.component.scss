@@ -18,21 +18,59 @@ main {
       padding: 10px;
       padding-right: 40px;
       grid-template-columns:100px auto auto;
-      grid-template-rows: 30px repeat(3, 20px) auto;
+      grid-template-rows: 30px repeat(2, 20px) 20px auto;
       row-gap: 10px;
       column-gap: 40px;
       margin-bottom: 20px;
       color: white;
       overflow: hidden;
       background: linear-gradient(to bottom right, #2a0033, black);
-      border-radius: 10px;
-      border:1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
 
       & img {
-        grid-row: 1/6;
+        grid-row: 1/5;
         width: 100px;
         height: 100px;
         border-radius: 10px;
+      }
+
+      & .profile-content-control {
+        grid-row: 6;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+
+        & button {
+          border: none;
+          background: none;
+          height: 20px;
+          width: 20px;
+
+          & .btn-icon {
+            color: rgba(255, 255, 255, 0.5);
+          }
+          & .active{
+            color: #74ffc7;
+          }
+
+          &:hover {
+            background: none;
+
+            & .btn-icon {
+              color: white;
+            }
+            & .active{
+              color: #74ffc7;
+            }
+          }
+        }
+
+        & button:last-child {
+          & .active{
+            color: #fff540;
+          }
+        }
       }
 
       & .username {
@@ -59,18 +97,21 @@ main {
         font-size: 14px;
       }
 
-      & .profile-links{
+      & .profile-links {
         display: flex;
         flex-direction: column;
-        gap:10px;
-        & .profile-link{
+        gap: 10px;
+
+        & .profile-link {
           font-size: 14px;
           display: flex;
-          gap:10px;
+          gap: 10px;
+
           & a {
             font-family: "JetBrains Mono Thin";
             font-weight: 100;
-            &:hover{
+
+            &:hover {
               text-decoration: underline;
 
             }
@@ -98,9 +139,11 @@ main {
         border-radius: 4px;
         padding: 20px;
         height: 270px;
-        & a{
+
+        & a {
           height: 35px;
         }
+
         & button {
           padding: 0 5px;
           border: none;
@@ -120,15 +163,15 @@ main {
               color: #bfff00;
             }
 
-            .c-follows{
+            .c-follows {
               color: #8527bb;
             }
 
-            .c-subs{
+            .c-subs {
               color: #27d9de;
             }
 
-            .c-creator{
+            .c-creator {
               color: #fc71b7;
             }
 
@@ -138,13 +181,14 @@ main {
           }
         }
 
-        & .sub-button{
-          border:1px solid white;
+        & .sub-button {
+          border: 1px solid white;
           justify-content: center;
           margin-bottom: 10px;
         }
-        & .subscribed{
-          border:none;
+
+        & .subscribed {
+          border: none;
           background: rgba(255, 255, 255, 0.1);
         }
       }
@@ -159,7 +203,8 @@ main {
     gap: 20px;
   }
 }
-.empty{
+
+.empty {
   margin: auto;
   width: 100px;
   height: 50px;
@@ -170,6 +215,7 @@ main {
   justify-content: center;
   align-items: center;
 }
+
 @media(max-width: 1200px) {
   main {
     & .fast-recs {

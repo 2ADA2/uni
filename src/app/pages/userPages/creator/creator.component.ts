@@ -83,8 +83,8 @@ export class CreatorComponent {
       if (value.header.length > 60) {
         this.form.get("header")?.setValue(value.header.slice(0, 60))
       }
-      if (value.text.length > 200) {
-        this.form.get("text")?.setValue(value.text.slice(0, 200))
+      if (value.text.length > 5000) {
+        this.form.get("text")?.setValue(value.text.slice(0, 5000))
       }
       this.postData.Header = this.form.value.header;
       this.postData.imgUrl = this.form.value.src;

@@ -56,6 +56,16 @@ export class PostService {
     })
   }
 
+  repost(id:string){
+    return this.http.post(this.baseApiUrl + "/repost", {
+      ID:id,
+    }, {
+      headers:{
+        "Authorization": this.cookieService.get("token")
+      }
+    })
+  }
+
   setCurrent (post:PostResponse){
     this.currentPost = post
   }

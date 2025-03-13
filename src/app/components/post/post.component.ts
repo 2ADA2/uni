@@ -6,7 +6,7 @@ import {PostResponse, UserDataResponse} from "../../utils/models/responses";
 import {PostService} from "../../service/postService";
 import {UserService} from "../../service/userService";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faBucket, faEllipsisV, faX} from "@fortawesome/free-solid-svg-icons";
+import {faBucket, faComment, faEllipsisV, faRepeat, faX} from "@fortawesome/free-solid-svg-icons";
 import {FormsModule} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
@@ -51,6 +51,7 @@ export class PostComponent {
   public clickedBookmarks: boolean = false;
   public liked: boolean = false
   public inBookmarks: boolean = false
+  reposted: boolean = false;
   public viewed: boolean = false
 
   public icon: string = environment.icon
@@ -70,6 +71,9 @@ export class PostComponent {
   public code:string = String(Math.random()).slice(5,9);
   public inputCode:string = ""
 
+  public isAll:boolean = true
+  public allText:string = ""
+
   ngOnInit() {
     const interval = setInterval(() => {
       if (this.postData.author) {
@@ -87,10 +91,14 @@ export class PostComponent {
           if (userLikes?.includes(this.postData.ID)) this.liked = true;
           const userBookmarks = data?.Bookmarks
           if (userBookmarks?.includes(this.postData.ID)) this.inBookmarks = true
+          const userReposts = data?.Reposts
+          if (userReposts?.includes(this.postData.ID)) this.reposted = true
           this.ID = this.postData.ID
           this.self = (this.userService.userData.User === this.postData.author)
           this.icon = this.postData.Icon || environment.icon
           this.imageUrl = this.postData.imgUrl;
+          this.allText = this.postData.text.substring(0, 400)
+          if(this.allText.length < this.postData.text.length) this.isAll = false
           clearInterval(interval)
         }
       }
@@ -133,6 +141,14 @@ export class PostComponent {
     this.likes = round(this.likesNum)
     this.clickedLike = true;
 
+  }
+
+  repost() {
+    this.postService.repost(this.postData.ID)
+      .subscribe(res => {
+        this.userService.getSelfData().subscribe()
+      })
+    this.reposted = !this.reposted
   }
 
   addToBookmarks() {
@@ -179,6 +195,11 @@ export class PostComponent {
     else document.body.style.overflowY="scroll";
   }
 
+  getAllText(){
+    this.isAll = true
+    this.allText = this.postData.text
+  }
+
   async delete(){
     if (this.inputCode === this.code){
       if(this.postData.imgUrl){
@@ -203,4 +224,6 @@ export class PostComponent {
   protected readonly faEllipsisV = faEllipsisV;
   protected readonly faBucket = faBucket;
   protected readonly faX = faX;
+  protected readonly faComment = faComment;
+  protected readonly faRepeat = faRepeat;
 }

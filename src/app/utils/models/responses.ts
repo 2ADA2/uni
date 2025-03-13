@@ -27,6 +27,7 @@ export interface UserDataResponse {
   Date: string;
   Posts: any;
   Likes: string[];
+  Reposts: string[];
   Bookmarks: string[];
 }
 export interface UserShortDataResponse {

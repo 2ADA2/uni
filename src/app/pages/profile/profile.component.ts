@@ -5,7 +5,16 @@ import {UserService} from "../../service/userService";
 import {PostcardComponent} from "../../components/postcard/postcard.component";
 import {PostResponse, UserDataResponse, UserResponse} from "../../utils/models/responses";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {faBookmark, faGear, faHeart, faLink, faPen, faPeopleGroup} from "@fortawesome/free-solid-svg-icons";
+import {
+  faBookmark,
+  faGear,
+  faHeart,
+  faImage,
+  faLink,
+  faPen,
+  faPeopleGroup,
+  faRepeat
+} from "@fortawesome/free-solid-svg-icons";
 import {Location, NgClass, NgStyle} from "@angular/common";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
@@ -46,6 +55,10 @@ export class ProfileComponent {
   private selfUserData: UserDataResponse | null = null
   public fastRecs !: PostResponse[]
   public posts: PostResponse[] = [];
+  public userPosts: PostResponse[] = [];
+  public userResposts: PostResponse[] = [];
+
+  public content:string = "posts"
 
   constructor() {
     this.userService.getSelfData().subscribe(res => {
@@ -73,6 +86,7 @@ export class ProfileComponent {
 
   ngOnInit() {
     this.userService.getUserPosts(this.name).subscribe(res => {
+      this.userPosts = res.data.posts
       this.posts = res.data.posts
     })
     this.postServise.getPosts().subscribe((res: UserResponse) => {
@@ -108,10 +122,34 @@ export class ProfileComponent {
     })
   }
 
+  async setContent(value: string) {
+    this.content = value;
+    if(this.content == "posts") {
+      this.posts = this.userPosts
+    }
+    if(this.content == "reposts") {
+      if(!this.userResposts.length) {
+        for(let id of this.userData!.Reposts){
+          const res = await this.http.get<UserResponse>(this.baseApiUrl + "/getPost?id=" + id, {
+            headers: {
+              "Authorization": this.cookieService.get("token")
+            }
+          }).toPromise()
+          if(!res) continue
+          this.userResposts = [...this.userResposts, res.data.post]
+          this.posts = this.userResposts
+        }
+      }
+      this.posts = this.userResposts
+    }
+  }
+
   protected readonly faPeopleGroup = faPeopleGroup;
   protected readonly faGear = faGear;
   protected readonly faBookmark = faBookmark;
   protected readonly faHeart = faHeart;
   protected readonly faPen = faPen;
   protected readonly faLink = faLink;
+  protected readonly faImage = faImage;
+  protected readonly faRepeat = faRepeat;
 }

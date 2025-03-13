@@ -16,9 +16,10 @@ import {environment} from "../../../environments/environment";
 export class AuthorCardComponent {
   @Input() userData!:UserShortDataResponse;
   public subscribers:string = "0"
-  public icon = environment.icon || this.userData?.Icon
+  public icon = environment.icon
 
   ngOnInit() {
+    this.icon = this.userData.Icon || environment.icon
     this.subscribers = round(this.userData.Followers.length)
   }
 }

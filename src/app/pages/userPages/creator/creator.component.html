@@ -25,7 +25,7 @@
           </span>
         </label>
         <img src="{{form.value.src}}">
-        <textarea placeholder="Some text (0-200lt)" formControlName="text"></textarea>
+        <textarea placeholder="Some text (0-5000lt)" formControlName="text"></textarea>
         <div class="button-container">
           @if (error) {
             <div class="error"><span>*</span> {{ error }}</div>

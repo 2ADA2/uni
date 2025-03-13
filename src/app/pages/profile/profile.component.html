@@ -1,50 +1,100 @@
 <main>
   <aside class="fast-recs">
-    @for (post of fastRecs; track post.ID){
+    @for (post of fastRecs; track post.ID) {
       <app-postcard [post]="post"></app-postcard>
     }
   </aside>
   <section class="profile-main">
     <div class="profile-header">
       <img src="{{icon}}" alt="profile-icon" fill>
-      <span class="username">{{name}}</span>
-      <span class="followers">{{subs}} follows</span>
-      <span class="followers">{{followers}} subscribers</span>
-      <span class="data">Joined in {{userData?.Date}}</span>
-      <p [ngStyle]="{'white-space' : 'pre-line'}">{{userData?.About}}</p>
+      <div class="profile-content-control">
+        <button (click)="setContent('posts')">
+          <fa-icon [icon]="faImage" [ngClass]="{active:content == 'posts'}" class="btn-icon"></fa-icon>
+        </button>
+        <button (click)="setContent('reposts')" >
+          <fa-icon [icon]="faRepeat" [ngClass]="{active:content=='reposts'}" class="btn-icon"></fa-icon>
+        </button>
+      </div>
+      <span class="username">{{ name }}</span>
+      <span class="followers">{{ subs }} follows</span>
+      <span class="followers">{{ followers }} subscribers</span>
+      <span class="data">Joined in {{ userData?.Date }}</span>
+      <p [ngStyle]="{'white-space' : 'pre-line'}">{{ userData?.About }}</p>
       <div class="profile-links">
-        @for(link of userData?.Links; track link.Name){
-          @if(link.Name && link.Link){
+        @for (link of userData?.Links; track link.Name) {
+          @if (link.Name && link.Link) {
             <div class="profile-link">
             <span>
               <fa-icon [icon]="faLink"></fa-icon>
             </span>
-              <a href="{{link.Link}}">{{link.Name}}</a>
+              <a href="{{link.Link}}">{{ link.Name }}</a>
             </div>
           }
         }
       </div>
     </div>
-    <section class = "profile-content">
+    <section class="profile-content">
       <div class="profile-posts">
-        @for(post of posts; track post.ID){
+        @for (post of posts; track post.ID) {
           <app-post [postData]="post"></app-post>
         } @empty {
-          <div class = "empty">empty</div>
+          <div class="empty">empty</div>
         }
       </div>
       <aside class="profile-control">
-        @if(self){
-          <a routerLink = "/likes"><button ><fa-icon [icon]="faHeart" class="c-heart"></fa-icon>Likes</button></a>
-          <a routerLink = "/bookmarks"><button><fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>Bookmarks</button></a>
-          <a routerLink = "/subscribers/{{userData?.User}}"><button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button></a>
-          <a routerLink = "/follows/{{userData?.User}}"><button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button></a>
-          <a routerLink = "/creator"><button><fa-icon [icon]="faPen" class="c-creator"></fa-icon>Creator</button></a>
-          <a routerLink = "/settings"><button><fa-icon [icon]="faGear" class="c-settings"></fa-icon>Settings</button></a>
-        }@else{
-          <button [ngClass]="{subscribed:subscribed}" class="sub-button" (click)="subscribeUser()">{{!subscribed ? "subscribe":"subscribed"}}</button>
-          <a routerLink = "/follows/{{userData?.User}}"><button><fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>Follows</button></a>
-          <a routerLink = "/subscribers/{{userData?.User}}"><button><fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>Subscribers</button></a>
+        @if (self) {
+          <a routerLink="/likes">
+            <button>
+              <fa-icon [icon]="faHeart" class="c-heart"></fa-icon>
+              Likes
+            </button>
+          </a>
+          <a routerLink="/bookmarks">
+            <button>
+              <fa-icon [icon]="faBookmark" class="c-bookmark"></fa-icon>
+              Bookmarks
+            </button>
+          </a>
+          <a routerLink="/subscribers/{{userData?.User}}">
+            <button>
+              <fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>
+              Subscribers
+            </button>
+          </a>
+          <a routerLink="/follows/{{userData?.User}}">
+            <button>
+              <fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>
+              Follows
+            </button>
+          </a>
+          <a routerLink="/creator">
+            <button>
+              <fa-icon [icon]="faPen" class="c-creator"></fa-icon>
+              Creator
+            </button>
+          </a>
+          <a routerLink="/settings">
+            <button>
+              <fa-icon [icon]="faGear" class="c-settings"></fa-icon>
+              Settings
+            </button>
+          </a>
+        } @else {
+          <button [ngClass]="{subscribed:subscribed}" class="sub-button"
+                  (click)="subscribeUser()">{{ !subscribed ? "subscribe" : "subscribed" }}
+          </button>
+          <a routerLink="/follows/{{userData?.User}}">
+            <button>
+              <fa-icon [icon]="faPeopleGroup" class="c-follows"></fa-icon>
+              Follows
+            </button>
+          </a>
+          <a routerLink="/subscribers/{{userData?.User}}">
+            <button>
+              <fa-icon [icon]="faPeopleGroup" class="c-subs"></fa-icon>
+              Subscribers
+            </button>
+          </a>
         }
       </aside>
     </section>
