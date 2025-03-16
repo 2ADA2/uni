@@ -1,5 +1,13 @@
-# 2bunnyFrontend
+# Uni frontend
+Uni it's a pet project by ADA made with AngularCLI. It's a social media like twitter or intagram.
+Uni has a backend part, s3 storage  and database.
 
+* main Framework - AngularCLI v18
+* s3 storage - Selectel
+* database - mongoDB
+* other libraries
+
+# Angular instructions:
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
 
 ## Development server

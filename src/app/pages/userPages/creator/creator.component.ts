@@ -61,6 +61,8 @@ export class CreatorComponent {
     "Likes": 123432,
     "Bookmarks": 22222,
     "Views": 4235322,
+    "Reposts" : 0,
+    "Comments": 2343,
   }
 
   public error = ""

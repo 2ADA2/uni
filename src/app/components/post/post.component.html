@@ -31,7 +31,7 @@
       <img src="{{icon}}">
     </a>
     <h5>
-      <a routerLink="/profile/{{postData?.author}}">
+      <a href="/profile/{{postData?.author}}">
         {{ postData?.author }}
       </a>
     </h5>
@@ -42,9 +42,9 @@
     <img src="{{imageUrl}}">
   }
   <p class="post-text" [ngStyle]="{ 'white-space': 'pre-line' }">{{ allText }}
-  @if(!isAll){
-    <button (click)="getAllText()">view all</button>
-  }
+    @if (!isAll) {
+      <button (click)="getAllText()">view all</button>
+    }
   </p>
   <div class="post-stats">
     <div class="left-stats">
@@ -84,18 +84,64 @@
         {{ views }}
     </span>
     </div>
-    <div class = "right-stats">
-      <button>
+    <div class="right-stats">
+      <button (click)="checkComments()">
         <fa-icon [icon]="faComment" class="comment"></fa-icon>
-        15
+        {{ commentsNum }}
       </button>
       <button (click)="repost()">
         <fa-icon [icon]="faRepeat" class="comment" [ngClass]="{active:reposted}"></fa-icon>
-        32
+        {{ reposts }}
       </button>
     </div>
   </div>
-  <section class="comments-container">
-    comment
-  </section>
+  @if (commentsView) {
+    <section class="comments-container">
+      <h5>{{ comments.Comments.length }} Comments</h5>
+      <div class="comments">
+        @for (comment of comments.Comments; track comment.Id) {
+          <div class="comment">
+            <img src="{{comment.Icon}}">
+            <span>{{ comment.Author }}</span>
+            <p>{{ comment.Text }}</p>
+            <div class="comment-control">
+              <button (click)="likeComment(comment.Id)">
+                {{ comment.Likes }}
+                <fa-icon [icon]="faThumbsUp"></fa-icon>
+              </button>
+              <button (click)="dislikeComment(comment.Id)">
+                {{ comment.Dislikes }}
+                <fa-icon [icon]="faThumbsDown"></fa-icon>
+              </button>
+              <button (click)="checkAnswers(comment.Id)">
+                {{ round(comment.Answers.length) }}
+                <fa-icon [icon]="faComment"></fa-icon>
+              </button>
+            </div>
+            @if (viewAnswers.includes(comment.Id)) {
+              <div class="answers">
+                @for (answer of comment.Answers; track answer.Id) {
+                  <div class="comment">
+                    <img src="{{answer.Icon}}">
+                    <span>{{ answer.Author }}</span>
+                    <p>{{ answer.Text }}</p>
+                    <div class="comment-control">
+                      <button (click)="likeComment(comment.Id)">
+                        {{ answer.Likes }}
+                        <fa-icon [icon]="faThumbsUp"></fa-icon>
+                      </button>
+                      <button (click)="dislikeComment(comment.Id)">
+                        {{ answer.Dislikes }}
+                        <fa-icon [icon]="faThumbsDown"></fa-icon>
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </section>
+  }
 </div>

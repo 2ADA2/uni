@@ -16,6 +16,8 @@ export interface PostResponse {
   "Likes": number;
   "Bookmarks": number;
   "Views": number;
+  "Reposts": number
+  "Comments": number;
 }
 export interface UserDataResponse {
   User: string;
@@ -29,6 +31,8 @@ export interface UserDataResponse {
   Likes: string[];
   Reposts: string[];
   Bookmarks: string[];
+  CommentLikes: string[];
+  CommentDislikes: string[];
 }
 export interface UserShortDataResponse {
   User: string;
@@ -43,4 +47,19 @@ export interface UserShortDataResponse {
 interface Link{
   Name:string;
   Link:string;
+}
+
+export interface Comment{
+  Id : string;
+  Author: string;
+  Icon: string;
+  Text: string;
+  IsAnswer:boolean;
+  Likes:number;
+  Dislikes:number;
+  Answers:Comment[]
+}
+
+export interface Comments{
+  Comments:Comment[];
 }

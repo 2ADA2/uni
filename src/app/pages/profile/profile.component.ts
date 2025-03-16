@@ -129,6 +129,10 @@ export class ProfileComponent {
     }
     if(this.content == "reposts") {
       if(!this.userResposts.length) {
+        if(!this.userData?.Reposts){
+          this.posts = []
+          return
+        }
         for(let id of this.userData!.Reposts){
           const res = await this.http.get<UserResponse>(this.baseApiUrl + "/getPost?id=" + id, {
             headers: {
@@ -137,7 +141,7 @@ export class ProfileComponent {
           }).toPromise()
           if(!res) continue
           this.userResposts = [...this.userResposts, res.data.post]
-          this.posts = this.userResposts
+          this.posts = this.userResposts.reverse()
         }
       }
       this.posts = this.userResposts
