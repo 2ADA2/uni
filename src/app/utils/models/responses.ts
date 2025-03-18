@@ -51,9 +51,11 @@ interface Link{
 
 export interface Comment{
   Id : string;
+  PostId: string;
   Author: string;
   Icon: string;
   Text: string;
+  Date: string;
   IsAnswer:boolean;
   Likes:number;
   Dislikes:number;

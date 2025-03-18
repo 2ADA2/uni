@@ -292,6 +292,132 @@
       top: 20px;
     }
   }
+
+  & span{
+    font-size: 16px;
+  }
+
+  & textarea{
+    background: none;
+    border:none;
+    width: 100%;
+    resize: vertical;
+    max-height: 400px;
+    min-height: 50px;
+    padding: 10px;
+    height: 50px;
+    color: white;
+    font-weight: 100;
+    font-family: "JetBrains Mono Thin";
+    border-bottom:1px solid #858585;
+    scrollbar-color: #1c1c1c black;
+
+    &:focus{
+      border:none;
+      outline: none;
+      border-bottom:1px solid white;
+    }
+  }
+  & .comment-container{
+    position: relative;
+    & button{
+      width: 200px;
+    }
+
+    & .counter{
+      position: absolute;
+      bottom: 50px;
+      right:calc(20px);
+    }
+
+  }
+  & .comments-container{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+
+    & .comments{
+      display: flex;
+      flex-direction: column;
+      gap:20px;
+
+      & .comment{
+        display: grid;
+        grid-template-columns:40px 1fr;
+        grid-template-rows: 40px auto auto auto auto;
+        gap:10px;
+
+        & img{
+          width: 40px;
+          height: 40px;
+        }
+        & .comment-header{
+          display: flex;
+          height: 40px;
+          flex-direction: column;
+
+          & span:last-child{
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.7)
+          }
+        }
+        & p{
+          grid-column: 1/3;
+          grid-row: 2;
+        }
+
+        & .comment-container{
+          grid-column: 1/3;
+        }
+
+        & .comment-control{
+          display: flex;
+          grid-column: 1/3;
+          gap: 20px;
+
+          & button{
+            border: none;
+            width: auto;
+            height: auto;
+            display: flex;
+            gap:10px;
+            align-items: center;
+            font-size: 14px;
+
+            &:hover{
+              background: none;
+              & fa-icon{
+                color: #74ffc7;
+              }
+            }
+          }
+        }
+
+        & .answer-button{
+          font-size: 14px;
+          width: 150px;
+          height: 25px;
+          border: 1px solid rgba(255, 255, 255, 0.7);
+          font-weight: 100;
+          font-family: "JetBrains Mono Thin";
+
+          &:hover{
+            border: 1px solid white;
+          }
+        }
+
+        & .answers{
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          grid-column: 1/3;
+          margin-top:10px;
+          padding-left:20px;
+          border-left: 10px solid rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
 }
 
 @keyframes active-bookmark {

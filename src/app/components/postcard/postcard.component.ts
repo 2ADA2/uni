@@ -25,7 +25,7 @@ export class PostcardComponent {
   public author = "ada"
   public icon = environment.icon;
   public header = "It's the first post on this site!"
-  public text = "It's the first post on this site and i hope you like it. I think only you can understand how it's hard to develop such project. "
+  public text = ""
 
   likes: number | string = 139456
   bookmarks: number | string = 63464

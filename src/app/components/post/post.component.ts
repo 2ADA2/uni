@@ -1,8 +1,8 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, ElementRef, inject, Input, ViewChild} from '@angular/core';
 import {NgClass, NgOptimizedImage, NgStyle} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {round} from "../../utils/functions/round";
-import {Comments, PostResponse, UserDataResponse} from "../../utils/models/responses";
+import {Comments, PostResponse, UserDataResponse, UserResponse} from "../../utils/models/responses";
 import {PostService} from "../../service/postService";
 import {UserService} from "../../service/userService";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
@@ -33,6 +33,8 @@ import {environment} from "../../../environments/environment";
   styleUrl: './post.component.scss'
 })
 export class PostComponent {
+  @ViewChild("commentText") commentText!: ElementRef<HTMLTextAreaElement>;
+  @ViewChild("answerText") answerText!: ElementRef<HTMLTextAreaElement>;
   private postService: PostService = inject(PostService);
   private userService: UserService = inject(UserService);
   private http: HttpClient = inject(HttpClient);
@@ -64,7 +66,7 @@ export class PostComponent {
   public clickedBookmarks: boolean = false;
   public liked: boolean = false
   public inBookmarks: boolean = false
-  reposted: boolean = false;
+  public reposted: boolean = false;
   public viewed: boolean = false
 
   public icon: string = environment.icon
@@ -81,45 +83,9 @@ export class PostComponent {
   commentsNum: number | string = 0
   reposts: number | string = 0
 
-  formGroup: FormGroup = new FormGroup({
-    comment: new FormControl("")
-  })
-
   commentsView: boolean = false;
-  comments: Comments = {
-    Comments: [
-      {
-        "Id": "223523",
-        "Author": "ada",
-        "Icon": this.i,
-        "Text": "that's really cool! man!",
-        "Likes": 13,
-        "IsAnswer": false,
-        "Dislikes": 2,
-        "Answers": [
-          {
-            "Id": "2343",
-            "Author": "kilowatt",
-            "Icon": this.i,
-            "Text": "thx:)",
-            "Likes": 2,
-            "Dislikes": 0,
-            "IsAnswer": true,
-            "Answers": []
-          }
-        ]
-      },
-      {
-        "Id": "532340",
-        "Author": "vendor",
-        "Icon": this.i,
-        "Text": "hahaha i have died with laugh",
-        "Likes": 13,
-        "IsAnswer": false,
-        "Dislikes": 2,
-        "Answers": []
-      }
-    ]
+  comments:Comments = {
+    "Comments":[]
   }
   viewAnswers: string = ""
 
@@ -132,6 +98,9 @@ export class PostComponent {
   public isAll: boolean = true
   public allText: string = ""
 
+  comment:string = ""
+  answer:string = ""
+
   ngOnInit() {
     const interval = setInterval(() => {
       if (this.postData.author) {
@@ -143,7 +112,7 @@ export class PostComponent {
         this.likes = round(Number(this.likesNum))
         this.bookmarks = round(Number(this.bookmarksNum))
         this.views = round(Number(this.viewsNum))
-        this.commentsNum = round(this.comments.Comments.length);
+        this.commentsNum = round(this.postData.Comments);
         this.reposts = round(this.postData.Reposts);
 
         if (this.userService.userData?.User) {
@@ -266,8 +235,84 @@ export class PostComponent {
     this.allText = this.postData.text
   }
 
-  checkComments() {
+  async checkComments() {
     this.commentsView = !this.commentsView
+    if(!this.comments.Comments.length){
+      const res = await this.http.get<UserResponse>(this.baseApiUrl + "/getComments?id=" + this.postData.ID, {
+        headers:{
+          "Authorization": this.cookieService.get("token")
+        }
+      }).toPromise()
+
+      if(res){
+        this.comments = { "Comments" : res.data.comments}
+      }
+    }
+  }
+
+  checkComment(){
+    if(this.comment.length > 500){
+      this.comment = this.comment.slice(0,500)
+      this.commentText.nativeElement.value = this.comment
+    }
+  }
+  leaveComment(){
+    let check:string[] = this.comment.slice().split("")
+    check = check.filter(str => str!="" && str!=`\n`)
+    if(check.length){
+      let date = new Date().toLocaleDateString("en-US");
+      do {
+        date = date.replace("/", ".")
+      } while (date.includes("/"));
+
+      const comment = {
+        "PostId":this.postData.ID,
+        "Text":this.comment,
+        "Author":this.userService.userData?.User,
+        "Icon":this.userService.userData?.Icon,
+        "Date":date,
+        "isAnswer":false,
+      }
+
+      this.http.post<UserResponse>(this.baseApiUrl + "/createComment", comment,{
+        headers:{
+          "Authorization": this.cookieService.get("token")
+        }
+      }).subscribe(res => {
+        this.commentText.nativeElement.value = ""
+        this.comment = ""
+        this.comments = {"Comments":[]}
+        this.postData.Comments = this.postData.Comments + 1
+        this.commentsView = false
+        this.checkComments()
+      })
+    }
+  }
+  leaveAnswer(id:string){
+    let check:string[] = this.answer.slice().split("")
+    check = check.filter(str => str!="" && str!=`\n`)
+    if(check.length){
+      let date = new Date().toLocaleDateString("en-US");
+      do {
+        date = date.replace("/", ".")
+      } while (date.includes("/"));
+
+      this.http.post<UserResponse>(this.baseApiUrl + "/createComment", {
+        "CommentId":id,
+        "Text":this.answer,
+        "Author":this.userService.userData?.User,
+        "Icon":this.userService.userData?.Icon,
+        "Date":date,
+        "isAnswer":true,
+      },{
+        headers:{
+          "Authorization": this.cookieService.get("token")
+        }
+      }).subscribe(res => {
+        this.answerText.nativeElement.value = ""
+        this.answer = ""
+      })
+    }
   }
 
   likeComment(id:string) {

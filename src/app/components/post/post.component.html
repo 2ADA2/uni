@@ -96,13 +96,23 @@
     </div>
   </div>
   @if (commentsView) {
+    <div class="comment-container">
+      <span>Comment this post:</span>
+      <textarea type="text" [(ngModel)]="comment" (input)="checkComment()" #commentText> </textarea>
+      <button (click)="leaveComment()">leave a comment</button>
+      <span class="counter">{{comment.length + "/" + 500}}</span>
+    </div>
+
     <section class="comments-container">
       <h5>{{ comments.Comments.length }} Comments</h5>
       <div class="comments">
         @for (comment of comments.Comments; track comment.Id) {
           <div class="comment">
             <img src="{{comment.Icon}}">
-            <span>{{ comment.Author }}</span>
+            <div class="comment-header">
+              <span>{{ comment.Author }}</span>
+              <span>{{comment.Date}}</span>
+            </div>
             <p>{{ comment.Text }}</p>
             <div class="comment-control">
               <button (click)="likeComment(comment.Id)">
@@ -119,11 +129,19 @@
               </button>
             </div>
             @if (viewAnswers.includes(comment.Id)) {
+              <div class="comment-container">
+                <textarea type="text" [(ngModel)]="answer" (input)="checkComment()" #answerText> </textarea>
+                <button (click)="leaveAnswer(comment.Id)" class="answer-button">leave an answer</button>
+                <span class="counter">{{answer.length + "/" + 500}}</span>
+              </div>
               <div class="answers">
                 @for (answer of comment.Answers; track answer.Id) {
                   <div class="comment">
                     <img src="{{answer.Icon}}">
-                    <span>{{ answer.Author }}</span>
+                    <div class="comment-header">
+                      <span>{{ answer.Author }}</span>
+                      <span>{{answer.Date}}</span>
+                    </div>
                     <p>{{ answer.Text }}</p>
                     <div class="comment-control">
                       <button (click)="likeComment(comment.Id)">
