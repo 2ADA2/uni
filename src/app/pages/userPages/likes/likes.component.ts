@@ -45,7 +45,9 @@ export class LikesComponent {
         headers: {
           "Authorization": this.cookieService.get("token")
         }
-      }).toPromise()
+      }).toPromise().catch((err) => {
+        return undefined
+      })
       if (!post) continue
       this.posts = [...this.posts, post.data.post];
       this.postsNum++

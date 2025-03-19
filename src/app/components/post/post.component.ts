@@ -283,6 +283,7 @@ export class PostComponent {
         this.comment = ""
         this.comments = {"Comments":[]}
         this.postData.Comments = this.postData.Comments + 1
+        this.commentsNum = round(this.postData.Comments)
         this.commentsView = false
         this.checkComments()
       })
@@ -311,6 +312,11 @@ export class PostComponent {
       }).subscribe(res => {
         this.answerText.nativeElement.value = ""
         this.answer = ""
+        this.comments = {"Comments":[]}
+        this.postData.Comments = this.postData.Comments + 1
+        this.commentsNum = round(this.postData.Comments)
+        this.commentsView = false
+        this.checkComments()
       })
     }
   }
@@ -318,9 +324,11 @@ export class PostComponent {
   likeComment(id:string) {
 
   }
+
   dislikeComment(id:string) {
 
   }
+
   checkAnswers(id:string) {
     if(id === this.viewAnswers){
       this.viewAnswers = ""

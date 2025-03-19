@@ -134,11 +134,13 @@ export class ProfileComponent {
           return
         }
         for(let id of this.userData!.Reposts){
-          const res = await this.http.get<UserResponse>(this.baseApiUrl + "/getPost?id=" + id, {
+          const res:UserResponse | undefined = await this.http.get<UserResponse>(this.baseApiUrl + "/getPost?id=" + id, {
             headers: {
               "Authorization": this.cookieService.get("token")
             }
-          }).toPromise()
+          }).toPromise().catch((err) => {
+            return undefined
+          })
           if(!res) continue
           this.userResposts = [...this.userResposts, res.data.post]
           this.posts = this.userResposts.reverse()
