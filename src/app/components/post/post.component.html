@@ -5,8 +5,8 @@
     </button>
     @if (optionsOpened) {
       <div class="post-options">
-        <button (click)="setDelete()">
-          <fa-icon [icon]="faBucket"></fa-icon>
+        <button (click)="setDelete()" class="post-options-button-delete">
+          <fa-icon [icon]="faTrash"></fa-icon>
           <span>Delete</span>
         </button>
       </div>
@@ -96,12 +96,19 @@
     </div>
   </div>
   @if (commentsView) {
-    <div class="comment-container">
-      <span>Comment this post:</span>
-      <textarea type="text" [(ngModel)]="comment" (input)="checkComment()" #commentText> </textarea>
-      <button (click)="leaveComment()">leave a comment</button>
-      <span class="counter">{{comment.length + "/" + 500}}</span>
-    </div>
+    @if (readyToComment) {
+      <div class="comment-container">
+        <span>Comment this post:</span>
+        <textarea type="text" [(ngModel)]="comment" (input)="checkComment()" #commentText> </textarea>
+        <button (click)="leaveComment()">leave a comment</button>
+        <span class="counter">{{ comment.length + "/" + 500 }}</span>
+      </div>
+    } @else {
+      <div class="comment-container">
+        <span (click)="commentReady()" class="text-button">Comment this post</span>
+      </div>
+    }
+
 
     <section class="comments-container">
       <h5>{{ comments.Comments.length }} Comments</h5>
@@ -111,47 +118,64 @@
             <img src="{{comment.Icon}}">
             <div class="comment-header">
               <span>{{ comment.Author }}</span>
-              <span>{{comment.Date}}</span>
+              <span>{{ comment.Date }}</span>
             </div>
             <p>{{ comment.Text }}</p>
             <div class="comment-control">
-              <button (click)="likeComment(comment.Id)">
+              <button (click)="likeComment(comment.Id)" class="comment-like" [ngClass]="{'activated-like':userData.CommentLikes.includes(comment.Id)}">
                 {{ comment.Likes }}
                 <fa-icon [icon]="faThumbsUp"></fa-icon>
               </button>
-              <button (click)="dislikeComment(comment.Id)">
+              <button (click)="dislikeComment(comment.Id)" class="comment-dislike" [ngClass]="{'activated-dislike':userData.CommentDislikes.includes(comment.Id)}">
                 {{ comment.Dislikes }}
                 <fa-icon [icon]="faThumbsDown"></fa-icon>
               </button>
-              <button (click)="checkAnswers(comment.Id)">
+              <button (click)="checkAnswers(comment.Id)" class="comment-answer">
                 {{ round(comment.Answers.length) }}
                 <fa-icon [icon]="faComment"></fa-icon>
               </button>
+              @if(comment.Author == userData?.User){
+                <button (click)="setDelComment(comment.Id)" class="comment-trash">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              }
             </div>
             @if (viewAnswers.includes(comment.Id)) {
-              <div class="comment-container">
-                <textarea type="text" [(ngModel)]="answer" (input)="checkComment()" #answerText> </textarea>
-                <button (click)="leaveAnswer(comment.Id)" class="answer-button">leave an answer</button>
-                <span class="counter">{{answer.length + "/" + 500}}</span>
-              </div>
+              @if (readyToAnswer) {
+                <div class="comment-container">
+                  <textarea type="text" [(ngModel)]="answer" (input)="checkComment()" #answerText> </textarea>
+                  <button (click)="leaveAnswer(comment.Id)" class="answer-button">leave an answer</button>
+                  <span class="counter">{{ answer.length + "/" + 500 }}</span>
+                </div>
+              } @else {
+                <div class="comment-container">
+                  <span (click)="answerReady()" class="text-button">write an answer</span>
+                </div>
+              }
+
               <div class="answers">
                 @for (answer of comment.Answers; track answer.Id) {
                   <div class="comment">
                     <img src="{{answer.Icon}}">
                     <div class="comment-header">
                       <span>{{ answer.Author }}</span>
-                      <span>{{answer.Date}}</span>
+                      <span>{{ answer.Date }}</span>
                     </div>
                     <p>{{ answer.Text }}</p>
                     <div class="comment-control">
-                      <button (click)="likeComment(comment.Id)">
+                      <button (click)="likeComment(answer.Id, comment.Id)" class="comment-like" [ngClass]="{'activated-like':userData.CommentLikes.includes(answer.Id)}">
                         {{ answer.Likes }}
                         <fa-icon [icon]="faThumbsUp"></fa-icon>
                       </button>
-                      <button (click)="dislikeComment(comment.Id)">
+                      <button (click)="dislikeComment(answer.Id, comment.Id)" class="comment-dislike" [ngClass]="{'activated-dislike':userData.CommentDislikes.includes(answer.Id)}">
                         {{ answer.Dislikes }}
                         <fa-icon [icon]="faThumbsDown"></fa-icon>
                       </button>
+                      @if(comment.Author == userData?.User){
+                        <button (click)="setDelComment(answer.Id)" class="comment-trash">
+                          <fa-icon [icon]="faTrash"></fa-icon>
+                        </button>
+                      }
                     </div>
                   </div>
                 }
@@ -160,6 +184,15 @@
           </div>
         }
       </div>
+      @if(readyToDeleteComment){
+        <div class="alert-window-background">
+          <div class="alert-window">
+            <h5>Are you sure?</h5>
+            <button (click)="deleteComment()">yes</button>
+            <button (click)="setDelComment()">no</button>
+          </div>
+        </div>
+      }
     </section>
   }
 </div>

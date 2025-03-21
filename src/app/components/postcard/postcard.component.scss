@@ -25,22 +25,22 @@
       border-radius: 10px;
     }
 
-    & h5{
-      margin-top:15px;
+    & h5 {
+      margin-top: 15px;
       font-weight: 100;
     }
 
-    & span{
+    & span {
       margin-bottom: 10px;
       font-size: 10px;
     }
   }
 
-  & .header{
+  & .header {
     font-size: 14px;
   }
 
-  & p{
+  & p {
     display: block;
     word-break: break-word;
     font-size: 10px;
@@ -55,20 +55,20 @@
     object-fit: cover;
   }
 
-  & .post-card-stats{
+  & .post-card-stats {
     display: flex;
     gap: 20px;
     justify-content: center;
     margin-top: 5px;
 
-    & span{
+    & span {
       display: flex;
-      gap:4px;
+      gap: 4px;
       align-items: center;
       font-size: 10px;
-      font-family:"JetBrains Mono Thin";
+      font-family: "JetBrains Mono Thin";
 
-      & svg{
+      & svg {
         width: 10px;
         height: 10px;
         fill: white;

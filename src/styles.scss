@@ -50,6 +50,15 @@ button {
     cursor: pointer;
   }
 }
+.text-button{
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  &:hover{
+    text-decoration: underline;
+    color: white;
+  }
+}
 
 input {
   background: black;
