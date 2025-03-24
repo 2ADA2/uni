@@ -105,6 +105,7 @@ export class PostComponent {
   readyToAnswer: boolean = false
   readyToDeleteComment: boolean = false
   commentDelId: string | null = null
+  commentParDelId: string | null = null
 
   ngOnInit() {
     const interval = setInterval(() => {
@@ -350,7 +351,9 @@ export class PostComponent {
     let dislikes:number = comment.Dislikes
 
     this.http.post<UserResponse>(this.baseApiUrl + "/likeComment", {
-      id:id
+      User:this.userService.userData?.User,
+      AId: pId ? id:"",
+      CId: pId ? pId : id,
     },{
       headers: {
         "Authorization": this.cookieService.get("token")
@@ -364,6 +367,15 @@ export class PostComponent {
         this.userData.CommentLikes.push(id)
         dislikes -= 1
         likes += 1
+        this.http.post<UserResponse>(this.baseApiUrl + "/dislikeComment", {
+          User:this.userService.userData?.User,
+          AId: pId ? id:"",
+          CId: pId ? pId : id,
+        },{
+          headers: {
+            "Authorization": this.cookieService.get("token")
+          }
+        }).subscribe()
       } else{
         this.userData.CommentLikes.push(id)
         likes += 1
@@ -400,7 +412,9 @@ export class PostComponent {
     let dislikes:number = comment.Dislikes
 
     this.http.post<UserResponse>(this.baseApiUrl + "/dislikeComment", {
-      id:id
+      User:this.userService.userData?.User,
+      AId: pId ? id:"",
+      CId: pId ? pId : id,
     },{
       headers: {
         "Authorization": this.cookieService.get("token")
@@ -414,6 +428,15 @@ export class PostComponent {
         this.userData.CommentDislikes.push(id)
         likes -= 1
         dislikes += 1
+        this.http.post<UserResponse>(this.baseApiUrl + "/likeComment", {
+          User:this.userService.userData?.User,
+          AId: pId ? id:"",
+          CId: pId ? pId : id,
+        },{
+          headers: {
+            "Authorization": this.cookieService.get("token")
+          }
+        }).subscribe()
       } else{
         this.userData.CommentDislikes.push(id)
         dislikes += 1
@@ -474,14 +497,31 @@ export class PostComponent {
   }
 
   async deleteComment() {
+    const pId = this.commentParDelId
+    const id = this.commentDelId
     if (!this.commentDelId) {
       return
     }
-    this.readyToDeleteComment = false
+    this.http.post<UserResponse>(this.baseApiUrl + "/deleteComment", {
+      User:this.userService.userData?.User,
+      AId: pId ? id:"",
+      CId: pId ? pId : id,
+    },{
+      headers: {
+        "Authorization": this.cookieService.get("token")
+      }
+    }).subscribe(() => {
+      this.commentsView = false
+      this.comments = {"Comments": []}
+      this.checkComments()
+      this.commentsNum = round(this.comments.Comments.length)
+      this.readyToDeleteComment = false
+    })
   }
 
-  async setDelComment(id?: string) {
+  async setDelComment(id?: string, pId?:string) {
     this.commentDelId = id || null
+    this.commentParDelId = pId || null
     this.readyToDeleteComment = !this.readyToDeleteComment
   }
 

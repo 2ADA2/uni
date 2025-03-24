@@ -42,6 +42,7 @@ export interface UserShortDataResponse {
   Subscribes: string[];
   Links: Link[];
   Date: string;
+  Reposts: string[];
 }
 
 interface Link{

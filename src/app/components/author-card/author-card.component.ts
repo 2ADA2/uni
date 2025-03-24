@@ -8,7 +8,6 @@ import {environment} from "../../../environments/environment";
   selector: 'app-author-card',
   standalone: true,
   imports: [
-    RouterLink
   ],
   templateUrl: './author-card.component.html',
   styleUrl: './author-card.component.scss'

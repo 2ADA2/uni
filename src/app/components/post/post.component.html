@@ -99,7 +99,7 @@
     @if (readyToComment) {
       <div class="comment-container">
         <span>Comment this post:</span>
-        <textarea type="text" [(ngModel)]="comment" (input)="checkComment()" #commentText> </textarea>
+        <textarea type ="text" [(ngModel)]="comment" (input)="checkComment()" #commentText> </textarea>
         <button (click)="leaveComment()">leave a comment</button>
         <span class="counter">{{ comment.length + "/" + 500 }}</span>
       </div>
@@ -111,7 +111,7 @@
 
 
     <section class="comments-container">
-      <h5>{{ comments.Comments.length }} Comments</h5>
+      <h5>{{ postData.Comments || 0}} Comments</h5>
       <div class="comments">
         @for (comment of comments.Comments; track comment.Id) {
           <div class="comment">
@@ -172,7 +172,7 @@
                         <fa-icon [icon]="faThumbsDown"></fa-icon>
                       </button>
                       @if(comment.Author == userData?.User){
-                        <button (click)="setDelComment(answer.Id)" class="comment-trash">
+                        <button (click)="setDelComment(answer.Id, comment.Id)" class="comment-trash">
                           <fa-icon [icon]="faTrash"></fa-icon>
                         </button>
                       }
