@@ -55,6 +55,8 @@ export class ProfileComponent {
   private selfUserData: UserDataResponse | null = null
   public fastRecs !: PostResponse[]
   public posts: PostResponse[] = [];
+  public allPosts:PostResponse[] = []
+  public allReposts:PostResponse[] = []
   public userPosts: PostResponse[] = [];
   public userResposts: PostResponse[] = [];
 
@@ -68,7 +70,7 @@ export class ProfileComponent {
         this.userData = res.data.data
         this.subs = this.userData!.Subscribes.length;
         this.followers = this.userData!.Followers.length
-        this.icon = this.userData!.Icon;
+        this.icon = this.userData!.Icon || environment.icon;
       } else {
         this.userService.getUser(this.name).subscribe(user => {
           this.userData = user.data.data
@@ -86,8 +88,10 @@ export class ProfileComponent {
 
   ngOnInit() {
     this.userService.getUserPosts(this.name).subscribe(res => {
-      this.userPosts = res.data.posts
-      this.posts = res.data.posts
+      this.allPosts = res.data.posts || []
+      this.userPosts = this.allPosts.slice(0,4)
+      this.allPosts = this.allPosts.slice(5, this.allPosts.length)
+      this.posts = this.userPosts
     })
     this.postServise.getPosts().subscribe((res: UserResponse) => {
       this.fastRecs = res.data.data.slice(0, 4)
@@ -142,11 +146,25 @@ export class ProfileComponent {
             return undefined
           })
           if(!res) continue
-          this.userResposts = [...this.userResposts, res.data.post]
-          this.posts = this.userResposts.reverse()
+          this.allReposts = [...this.allReposts, res.data.post]
         }
+        this.allReposts = this.allReposts.reverse()
+        this.userResposts = this.allReposts.slice(0,4)
+        this.allReposts = this.allReposts.slice(4, this.allReposts.length)
       }
       this.posts = this.userResposts
+    }
+  }
+
+  getMore(){
+    if(this.content == "posts") {
+      this.userPosts = [...this.userPosts, ...this.allPosts.slice(0,4)]
+      this.allPosts = this.allPosts.slice(4,this.allPosts.length)
+      this.posts = this.userPosts
+    }else{
+      this.userResposts = [...this.userResposts, ...this.allReposts.slice(0,4)]
+      this.allReposts = this.allReposts.slice(5,this.allReposts.length)
+      this.posts= this.userResposts
     }
   }
 

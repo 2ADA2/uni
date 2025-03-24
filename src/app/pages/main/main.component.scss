@@ -9,6 +9,15 @@ main {
   gap: 20px;
   position: relative;
 
+  & .get-more{
+    border: none;
+
+    &:hover{
+      background: none;
+      text-decoration: underline;
+    }
+  }
+
   & .menu {
     width: 23%;
     max-width: 300px;

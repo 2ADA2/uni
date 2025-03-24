@@ -10,6 +10,9 @@
     @for (post of mainPosts; track post.ID) {
       <app-post [postData]="post"></app-post>
     }
+    @if(allPosts.length){
+      <button (click)="getMore()" class="get-more">Get more</button>
+    }
   </section>
   <aside class="menu">
     <div class="menu-container">

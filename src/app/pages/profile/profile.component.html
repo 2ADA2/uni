@@ -40,6 +40,11 @@
         } @empty {
           <div class="empty">empty</div>
         }
+        @if(content === "reposts" && allReposts.length){
+          <button (click)="getMore()" class="get-more">Get more</button>
+        }@else if(allPosts.length){
+          <button (click)="getMore()" class="get-more">Get more</button>
+        }
       </div>
       <aside class="profile-control">
         @if (self) {

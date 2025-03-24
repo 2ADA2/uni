@@ -60,7 +60,7 @@ export class LayoutComponent {
   logout(){
     this.authService.logout()
     this.isAuth =  false
-    this.menu=false
+    this.menu = false
   }
 
   setMenu(){

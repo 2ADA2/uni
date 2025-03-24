@@ -41,6 +41,7 @@ export class PostComponent {
   private cookieService: CookieService = inject(CookieService);
   private baseApiUrl: string = environment.api;
   public imageUrl: string = environment.image;
+  public standart = environment.icon
   public userData!: UserDataResponse
 
 
@@ -88,6 +89,7 @@ export class PostComponent {
   comments: Comments = {
     "Comments": []
   }
+  public allComments:Comment[] = []
   viewAnswers: string = ""
 
   public self: boolean = false;
@@ -123,10 +125,10 @@ export class PostComponent {
 
         if (this.userService.userData?.User) {
           this.userData = this.userService.userData
-          if(!this.userData.CommentLikes){
+          if (!this.userData.CommentLikes) {
             this.userData.CommentLikes = []
           }
-          if(!this.userData.CommentDislikes){
+          if (!this.userData.CommentDislikes) {
             this.userData.CommentDislikes = []
           }
           const data: UserDataResponse = this.userService.userData
@@ -259,9 +261,15 @@ export class PostComponent {
       }).toPromise()
 
       if (res) {
-        this.comments = {"Comments": res.data.comments}
+        this.allComments = res.data.comments || []
+        this.comments = {"Comments": this.allComments.slice(0,5)}
+        this.allComments = this.allComments.slice(5,this.allComments.length)
       }
     }
+  }
+  getMoreComments() {
+    this.comments.Comments = [...this.comments.Comments, ...this.allComments.slice(0,5)]
+    this.allComments = this.allComments.slice(5,this.allComments.length)
   }
 
   checkComment() {
@@ -337,60 +345,59 @@ export class PostComponent {
     }
   }
 
-  likeComment(id: string, pId?:string) {
-    let comment!:Comment|undefined
-    if(!pId){
+  likeComment(id: string, pId?: string) {
+    let comment!: Comment | undefined
+    if (!pId) {
       comment = this.comments.Comments.find((e) => e.Id === id)
-    } else{
+    } else {
       comment = this.comments.Comments.find((e) => e.Id === pId)
       if (!comment) return
       comment = comment.Answers.find(e => e.Id === id)
     }
-    if(!comment) return
-    let likes:number = comment.Likes
-    let dislikes:number = comment.Dislikes
+    if (!comment) return
+    let likes: number = comment.Likes
+    let dislikes: number = comment.Dislikes
 
     this.http.post<UserResponse>(this.baseApiUrl + "/likeComment", {
-      User:this.userService.userData?.User,
-      AId: pId ? id:"",
+      User: this.userService.userData?.User,
+      AId: pId ? id : "",
       CId: pId ? pId : id,
-    },{
+    }, {
       headers: {
         "Authorization": this.cookieService.get("token")
       }
     }).subscribe(() => {
-      if(this.userData.CommentLikes.includes(id)){
-        this.userData.CommentLikes.splice(this.userData.CommentLikes.indexOf(id),1)
+      if (this.userData.CommentLikes.includes(id)) {
+        this.userData.CommentLikes.splice(this.userData.CommentLikes.indexOf(id), 1)
         likes -= 1
-      } else if (this.userData.CommentDislikes.includes(id)){
-        this.userData.CommentDislikes.splice(this.userData.CommentLikes.indexOf(id),1)
+      } else if (this.userData.CommentDislikes.includes(id)) {
+        this.userData.CommentDislikes.splice(this.userData.CommentLikes.indexOf(id), 1)
         this.userData.CommentLikes.push(id)
         dislikes -= 1
         likes += 1
         this.http.post<UserResponse>(this.baseApiUrl + "/dislikeComment", {
-          User:this.userService.userData?.User,
-          AId: pId ? id:"",
+          User: this.userService.userData?.User,
+          AId: pId ? id : "",
           CId: pId ? pId : id,
-        },{
+        }, {
           headers: {
             "Authorization": this.cookieService.get("token")
           }
         }).subscribe()
-      } else{
+      } else {
         this.userData.CommentLikes.push(id)
         likes += 1
       }
 
-      for (let i in this.comments.Comments){
-        if(this.comments.Comments[i].Id === pId){
-          for (let j in this.comments.Comments[i].Answers){
-            if(this.comments.Comments[i].Answers[j].Id === id){
+      for (let i in this.comments.Comments) {
+        if (this.comments.Comments[i].Id === pId) {
+          for (let j in this.comments.Comments[i].Answers) {
+            if (this.comments.Comments[i].Answers[j].Id === id) {
               this.comments.Comments[i].Answers[j].Likes = likes
               this.comments.Comments[i].Answers[j].Dislikes = dislikes
             }
           }
-        }
-        else if(this.comments.Comments[i].Id === id){
+        } else if (this.comments.Comments[i].Id === id) {
           this.comments.Comments[i].Likes = likes
           this.comments.Comments[i].Dislikes = dislikes
         }
@@ -398,59 +405,58 @@ export class PostComponent {
     })
   }
 
-  dislikeComment(id: string, pId?:string) {
-    let comment!:Comment|undefined
-    if(!pId){
-       comment = this.comments.Comments.find((e) => e.Id === id)
-    } else{
+  dislikeComment(id: string, pId?: string) {
+    let comment!: Comment | undefined
+    if (!pId) {
+      comment = this.comments.Comments.find((e) => e.Id === id)
+    } else {
       comment = this.comments.Comments.find((e) => e.Id === pId)
       if (!comment) return
       comment = comment.Answers.find(e => e.Id === id)
     }
-    if(!comment) return
-    let likes:number = comment.Likes
-    let dislikes:number = comment.Dislikes
+    if (!comment) return
+    let likes: number = comment.Likes
+    let dislikes: number = comment.Dislikes
 
     this.http.post<UserResponse>(this.baseApiUrl + "/dislikeComment", {
-      User:this.userService.userData?.User,
-      AId: pId ? id:"",
+      User: this.userService.userData?.User,
+      AId: pId ? id : "",
       CId: pId ? pId : id,
-    },{
+    }, {
       headers: {
         "Authorization": this.cookieService.get("token")
       }
     }).subscribe(() => {
-      if(this.userData.CommentDislikes.includes(id)){
-        this.userData.CommentDislikes.splice(this.userData.CommentDislikes.indexOf(id),1)
+      if (this.userData.CommentDislikes.includes(id)) {
+        this.userData.CommentDislikes.splice(this.userData.CommentDislikes.indexOf(id), 1)
         dislikes -= 1
-      } else if (this.userData.CommentLikes.includes(id)){
-        this.userData.CommentLikes.splice(this.userData.CommentDislikes.indexOf(id),1)
+      } else if (this.userData.CommentLikes.includes(id)) {
+        this.userData.CommentLikes.splice(this.userData.CommentDislikes.indexOf(id), 1)
         this.userData.CommentDislikes.push(id)
         likes -= 1
         dislikes += 1
         this.http.post<UserResponse>(this.baseApiUrl + "/likeComment", {
-          User:this.userService.userData?.User,
-          AId: pId ? id:"",
+          User: this.userService.userData?.User,
+          AId: pId ? id : "",
           CId: pId ? pId : id,
-        },{
+        }, {
           headers: {
             "Authorization": this.cookieService.get("token")
           }
         }).subscribe()
-      } else{
+      } else {
         this.userData.CommentDislikes.push(id)
         dislikes += 1
       }
-      for (let i in this.comments.Comments){
-        if(this.comments.Comments[i].Id === pId){
-          for (let j in this.comments.Comments[i].Answers){
-            if(this.comments.Comments[i].Answers[j].Id === id){
+      for (let i in this.comments.Comments) {
+        if (this.comments.Comments[i].Id === pId) {
+          for (let j in this.comments.Comments[i].Answers) {
+            if (this.comments.Comments[i].Answers[j].Id === id) {
               this.comments.Comments[i].Answers[j].Likes = likes
               this.comments.Comments[i].Answers[j].Dislikes = dislikes
             }
           }
-        }
-        else if(this.comments.Comments[i].Id === id){
+        } else if (this.comments.Comments[i].Id === id) {
           this.comments.Comments[i].Likes = likes
           this.comments.Comments[i].Dislikes = dislikes
         }
@@ -459,6 +465,25 @@ export class PostComponent {
   }
 
   checkAnswers(id: string) {
+    const answersContainer: Element = document.getElementsByClassName("answers")[0]
+    if (answersContainer) {
+      const newAnswers:Comment|undefined = this.comments.Comments.find((e) => e.Id === id)
+      let newId: number | null = null
+      if (newAnswers) {
+        newId = this.comments.Comments.indexOf(newAnswers)
+      }
+
+      let oldId: number | null = null
+      const oldAnswers:Comment|undefined = this.comments.Comments.find(e => e.Id == this.viewAnswers)
+      if (oldAnswers) {
+        oldId = this.comments.Comments.indexOf(oldAnswers)
+      }
+      if(newId && oldId){
+        if(newId > oldId){
+          window.scrollBy(0, -(answersContainer.getBoundingClientRect().height)+295)
+        }
+      }
+    }
     this.readyToAnswer = false
     if (id === this.viewAnswers) {
       this.viewAnswers = ""
@@ -503,10 +528,10 @@ export class PostComponent {
       return
     }
     this.http.post<UserResponse>(this.baseApiUrl + "/deleteComment", {
-      User:this.userService.userData?.User,
-      AId: pId ? id:"",
+      User: this.userService.userData?.User,
+      AId: pId ? id : "",
       CId: pId ? pId : id,
-    },{
+    }, {
       headers: {
         "Authorization": this.cookieService.get("token")
       }
@@ -519,7 +544,7 @@ export class PostComponent {
     })
   }
 
-  async setDelComment(id?: string, pId?:string) {
+  async setDelComment(id?: string, pId?: string) {
     this.commentDelId = id || null
     this.commentParDelId = pId || null
     this.readyToDeleteComment = !this.readyToDeleteComment

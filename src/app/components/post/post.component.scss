@@ -9,6 +9,16 @@
   border: 1px solid rgba(255, 255, 255, 0.5);
   position: relative;
 
+  & .get-more{
+    border: none;
+    font-size: 14px;
+    width: auto;
+    &:hover{
+      background: none;
+      text-decoration: underline;
+    }
+  }
+
   & .post-options {
     align-self: flex-end;
     background: none;

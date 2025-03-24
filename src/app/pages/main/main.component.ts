@@ -27,6 +27,7 @@ export class MainComponent {
   userData: UserDataResponse | null = null
   private postService: PostService = inject(PostService);
   public mainPosts !:PostResponse[]
+  public allPosts !:PostResponse[]
   public fastRecs !:PostResponse[]
   public icon = environment.icon;
 
@@ -40,12 +41,18 @@ export class MainComponent {
     },50)
 
     this.postService.getPosts().subscribe((res: UserResponse) => {
-      this.mainPosts = [res.data.data[0], ...res.data.data.slice(4,res.data.length)]
+      this.allPosts = [res.data.data[0], ...res.data.data.slice(4,res.data.length)]
+      this.mainPosts = this.allPosts.slice(0,4)
+      this.allPosts = this.allPosts.slice(4,res.data.length)
       this.fastRecs = res.data.data.slice(1,4)
     })
-
-
   }
+
+  getMore(){
+    this.mainPosts = [...this.mainPosts, ...this.allPosts.slice(0,4)]
+    this.allPosts = this.allPosts.slice(4,this.allPosts.length)
+  }
+
 
   protected readonly faUser = faUser;
   protected readonly faHeart = faHeart;

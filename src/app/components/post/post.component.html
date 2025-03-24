@@ -115,7 +115,7 @@
       <div class="comments">
         @for (comment of comments.Comments; track comment.Id) {
           <div class="comment">
-            <img src="{{comment.Icon}}">
+            <img src="{{comment.Icon || standart}}">
             <div class="comment-header">
               <span>{{ comment.Author }}</span>
               <span>{{ comment.Date }}</span>
@@ -156,7 +156,7 @@
               <div class="answers">
                 @for (answer of comment.Answers; track answer.Id) {
                   <div class="comment">
-                    <img src="{{answer.Icon}}">
+                    <img src="{{answer.Icon || standart}}">
                     <div class="comment-header">
                       <span>{{ answer.Author }}</span>
                       <span>{{ answer.Date }}</span>
@@ -182,6 +182,9 @@
               </div>
             }
           </div>
+        }
+        @if(allComments.length){
+          <button (click)="getMoreComments()" class="get-more">Get more</button>
         }
       </div>
       @if(readyToDeleteComment){

@@ -30,6 +30,7 @@ export class AuthService {
     this.cookieService.delete("token")
     this.cookieService.delete("userData")
     this.router.navigateByUrl("/login");
+    window.location.reload();
   }
 
   login(payload: { name: string, password: string }) {
